@@ -6,13 +6,17 @@ var s3 = new AWS.S3();
 exports.handler = async (event, context, callback) => {
     let bodyBuffer = new Buffer(event['body'].toString(), 'base64');
     let boundary = multipart.getBoundary(event.headers["content-type"]);
-        
+    
+    console.log(event);
+
+    let user = event.requestContext.authorizer["X-User-Id"];
     let parts = multipart.Parse(bodyBuffer, boundary);
     let folder = event.queryStringParameters["folder"];
     let filename = parts[0].filename;
     if (folder != undefined){
         filename = folder + "/" + filename;
     }
+    filename = user + "/" + filename;
 
     let decodedImage = Buffer.from(parts[0].data, 'base64');
     
