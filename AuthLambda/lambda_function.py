@@ -2,18 +2,17 @@ import json
 import jwt
 
 def lambda_handler(event, context):
-    print(event)
-
     secret_key = "secret"
     token = event["authorizationToken"]
-
     try:
         payload = jwt.decode(token, secret_key, algorithms="HS256")
-        print(payload)
         access = "Allow"
     except:
         access = "Deny"
-
+    context = {
+        'X-User-Id': payload["user"]
+    }
+    
     return {
         "principalId": "yyyyyyyy",
         "policyDocument":{
@@ -25,6 +24,7 @@ def lambda_handler(event, context):
                     "Resource": "arn:aws:execute-api:eu-central-1:665416417349:rf3ziq3c61/*/*"
                 }
             ]
-        }
+        },
+        "context": context
     }
     
