@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.1370.0",
-    "parse-multipart": "^1.0.4"
+    "parse-multipart": "^1.0.4",
+    "uuid": "^9.0.0"
   }
 }
