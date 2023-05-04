@@ -19,6 +19,16 @@ def check_user_exist(username: str):
 	return response['Count'] == 0
 
 
+def check_email_exist(email: str):
+	dynamodb = boto3.resource('dynamodb')
+	table = dynamodb.Table('Users')
+	response = table.query(
+		IndexName='email-index',
+		KeyConditionExpression=Key('email').eq(email)
+	)
+	return response['Count'] == 0
+
+
 def check_password_format(password: str):
 	pattern = r"^(?=.*[A-Z])(?=.*\d.*\d.*\d).+$"
 	return re.search(pattern, password)
@@ -83,6 +93,13 @@ def lambda_handler(event, context):
 			'statusCode': 400,
 			'body': json.dumps({'message': 'Username already exists'})
 		}
+	
+	if not check_email_exist(body["email"]):
+		return {
+			'statusCode': 400,
+			'body': json.dumps({'message': 'Email already exists'})
+		}
+	
 	if not check_password_format(body["password"]):
 		return {
 			'statusCode': 400,
