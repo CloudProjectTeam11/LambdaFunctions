@@ -1,12 +1,13 @@
-const multipart = require("parse-multipart");
-const AWS = require("aws-sdk");
-const uuid = require("uuid");
+const multipart = require("functions/UploadFileToS3Bucket/node_modules/parse-multipart");
+const AWS = require("functions/UploadFileToS3Bucket/node_modules/aws-sdk");
+const uuid = require("functions/UploadFileToS3Bucket/node_modules/uuid");
 
 var s3 = new AWS.S3();
+const userFilesBucketName = process.env.USER_FILES_BUCKET;
 
 async function getS3Object(objectKey) {
     const params = {
-      Bucket: "demo-app-content",
+      Bucket: userFilesBucketName,
       Key: objectKey
     };
   
@@ -16,7 +17,7 @@ async function getS3Object(objectKey) {
     } catch (error) {
         return undefined;
     }
-  }
+}
 
 exports.handler = async (event, context, callback) => {
     let bodyBuffer = Buffer.from(event['body'], 'base64');
@@ -37,7 +38,7 @@ exports.handler = async (event, context, callback) => {
     console.log(data);
     let params = {
         "Body" : decodedImage,
-        "Bucket": "demo-app-content",
+        "Bucket": userFilesBucketName,
         "Key" : filename,
     }
     let fileId = "";

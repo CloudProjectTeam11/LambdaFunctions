@@ -1,17 +1,20 @@
 import json
-import jwt
+import functions.LoginUser.package.jwt as jwt
 import hashlib
 import boto3
 import datetime
+import os
 from boto3.dynamodb.conditions import Key
 
+users_table = os.environ["USERS_TABLE"]
+
 def hash_password(password: str):
-    #return hashlib.sha256(password.encode('utf-8')).hexdigest()
-    return password
+    return hashlib.sha256(password.encode('utf-8')).hexdigest()
+    #return password
 
 def validate_user(email : str, password : str):
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('Users')
+    table = dynamodb.Table(users_table)
     hashed_password = hash_password(password)
     response = table.query(
         IndexName='email-index',

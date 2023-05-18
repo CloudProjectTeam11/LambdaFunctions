@@ -1,0 +1,173 @@
+# Service name
+service: cloud-computing-project
+# Serverless framework version
+frameworkVersion: '3'
+
+# Global configuration
+provider:
+  # Cloud provider name
+  name: aws
+  # Lambda function runtime enviroment
+  runtime: python3.7
+  # Deployment stage
+  stage: dev
+  # Deplotment region
+  region: eu-central-1
+  # Global memory configuration (default 1024MB)
+  memorySize: 128
+  # Function timeout in seconds (default 6s)
+  timeout: 10
+  environment:
+    USER_FILES_BUCKET:
+      Ref: userFilesBucket
+    USER_FILES_METADATA_TABLE:
+      Ref: userFilesMetadataTable
+    USERS_TABLE:
+      Ref: usersTable
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:DescribeTable
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - "Fn::GetAtt": [userFilesMetadataTable, Arn]
+            - "Fn::GetAtt": [usersTable, Arn]
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+            - s3:GetObject
+            - s3:ListBucket
+            - s3:PutBucketNotification
+          Resource:
+            - "arn:aws:s3:::user-files-09"
+            - "arn:aws:s3:::user-files-09/*"
+
+
+package:
+  individually: true
+  patterns:
+    - '!**/**'  
+
+# Lambda functions
+functions:
+  defaultAuthorizer:
+    handler: functions/DefaultAuthorizer/lambda_function.lambda_handler
+    package:
+      patterns:
+        - functions/DefaultAuthorizer/**
+  registerUser:
+    handler: functions/RegisterUser/lambda_function.lambda_handler
+    package:
+      patterns:
+        - 'functions/RegisterUser/**'      
+    events:
+      - http:
+          path: user/register
+          method: post
+          cors: true
+  loginUser:
+    handler: functions/LoginUser/lambda_function.lambda_handler
+    package:
+      patterns:
+        - 'functions/LoginUser/**'      
+    events:
+      - http:
+          path: user/login
+          method: post
+          cors: true
+  uploadFileToS3:
+    handler: functions/UploadFileToS3Bucket/index.handler
+    package:
+      patterns:
+        - 'functions/UploadFileToS3Bucket/**'
+    events:
+      - http:
+          path: resources/upload
+          method: post
+          cors: true
+          authorizer:
+            name: defaultAuthorizer
+            resultTtlInSeconds: 300
+  updateFileMetadata:
+    handler: functions/UpdateFileMetadata/lambda_function.lambda_handler
+    package:
+      patterns:
+        - 'functions/UpdateFileMetadata/**'
+    events:
+      - http:
+          path: resources/metadata
+          method: post
+          cors: true
+          authorizer:
+            name: defaultAuthorizer
+            resultTtlInSeconds: 300
+  onS3BucketInsert:
+    handler: functions/OnS3BucketInsert/lambda_function.lambda_handler
+    package:
+      patterns:
+        - 'functions/OnS3BucketInsert/**'    
+    events:
+      - s3:
+          bucket: {Ref: userFilesBucket}
+          event: s3:ObjectCreated:*
+          existing: true
+      - s3:
+          bucket: {Ref: userFilesBucket}
+          event: s3:ObjectUpdated:*
+          existing: true
+
+resources:
+  Resources:
+    userFilesBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: user-files-09
+    userFilesMetadataTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Delete
+      Properties:
+        TableName: UserFilesMetadata
+        AttributeDefinitions:
+          - AttributeName: file_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: file_id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Delete
+      # DependsOn:
+      #   - userFilesBucket
+      Properties:
+        TableName: Users02
+        AttributeDefinitions:
+            - AttributeName: username
+              AttributeType: S
+            - AttributeName: email
+              AttributeType: S
+        KeySchema:
+          - AttributeName: username
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        GlobalSecondaryIndexes:
+          - IndexName: EmailIndex
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1

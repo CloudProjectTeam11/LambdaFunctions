@@ -2,8 +2,10 @@ import json
 import boto3
 import hashlib
 import re
+import os
 from boto3.dynamodb.conditions import Key
 
+users_table = os.environ["USERS_TABLE"]
 
 def hash_password(password: str):
 	return hashlib.sha256(password.encode('utf-8')).hexdigest()
@@ -11,17 +13,14 @@ def hash_password(password: str):
 
 def check_user_exist(username: str):
 	dynamodb = boto3.resource('dynamodb')
-	table = dynamodb.Table('Users')
-	response = table.query(
-		IndexName='username-index',
-		KeyConditionExpression=Key('username').eq(username)
-	)
-	return response['Count'] == 0
+	table = dynamodb.Table(users_table)
+	response = table.get_item(Key={'username': username})
+	return response.get('Item') is None
 
 
 def check_email_exist(email: str):
 	dynamodb = boto3.resource('dynamodb')
-	table = dynamodb.Table('Users')
+	table = dynamodb.Table(users_table)
 	response = table.query(
 		IndexName='email-index',
 		KeyConditionExpression=Key('email').eq(email)
@@ -41,7 +40,7 @@ def check_email(email: str):
 
 def put_user(user: dict):
 	dynamodb = boto3.resource('dynamodb')
-	table = dynamodb.Table('Users')
+	table = dynamodb.Table(users_table)
 	table.put_item(Item=user)
 
 

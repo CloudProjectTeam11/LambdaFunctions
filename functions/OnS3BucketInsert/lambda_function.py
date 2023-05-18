@@ -1,15 +1,16 @@
 import json
 import boto3
 import datetime
+import os
+
+bucket_name = os.environ["USER_FILES_BUCKET"]
+table_name = os.environ["USER_FILES_METADATA_TABLE"]
 
 def lambda_handler(event, context):
-    print(event["Records"][0]["s3"]["object"]["key"])
-    print(event)
-    
     filename = event["Records"][0]["s3"]["object"]["key"]
     
     s3 = boto3.client('s3')
-    response = s3.head_object(Bucket="demo-app-content", Key=filename)
+    response = s3.head_object(Bucket=bucket_name, Key=filename)
     metadata = response['Metadata']
     
     file_id = metadata["file-id"]
@@ -21,7 +22,7 @@ def lambda_handler(event, context):
     
     if is_changed == "false":
         dynamodb.put_item(
-                TableName='files_metadata',
+                TableName=table_name,
                 Item = {
                     'file_id': {'S': file_id},
                     'created_at': {'S': current_time},
@@ -34,7 +35,7 @@ def lambda_handler(event, context):
     
     else:
         dynamodb.update_item(
-            TableName='files_metadata',
+            TableName=table_name,
             Key={
                 'file_id': file_id
             },
