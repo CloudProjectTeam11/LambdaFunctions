@@ -11,10 +11,13 @@
       "region": "eu-central-1",
       "memorySize": 128,
       "timeout": 10,
+      "s3": {
+        "userFilesBucket": {
+          "name": "user-files"
+        }
+      },
       "environment": {
-        "USER_FILES_BUCKET": {
-          "Ref": "userFilesBucket"
-        },
+        "USER_FILES_BUCKET": "user-files",
         "USER_FILES_METADATA_TABLE": {
           "Ref": "userFilesMetadataTable"
         },
@@ -60,8 +63,8 @@
                 "s3:PutBucketNotification"
               ],
               "Resource": [
-                "arn:aws:s3:::user-files-09",
-                "arn:aws:s3:::user-files-09/*"
+                "arn:aws:s3:::user-files",
+                "arn:aws:s3:::user-files/*"
               ]
             }
           ]
@@ -268,7 +271,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1684413106824-2023-05-18T12:31:46.824Z/defaultAuthorizer.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1686490666482-2023-06-11T13:37:46.482Z/defaultAuthorizer.zip"
               },
               "Handler": "functions/DefaultAuthorizer/lambda_function.lambda_handler",
               "Runtime": "python3.7",
@@ -277,9 +280,7 @@
               "Timeout": 10,
               "Environment": {
                 "Variables": {
-                  "USER_FILES_BUCKET": {
-                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_BUCKET\"]"
-                  },
+                  "USER_FILES_BUCKET": "user-files",
                   "USER_FILES_METADATA_TABLE": {
                     "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_METADATA_TABLE\"]"
                   },
@@ -306,7 +307,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1684413106824-2023-05-18T12:31:46.824Z/registerUser.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1686490666482-2023-06-11T13:37:46.482Z/registerUser.zip"
               },
               "Handler": "functions/RegisterUser/lambda_function.lambda_handler",
               "Runtime": "python3.7",
@@ -315,9 +316,7 @@
               "Timeout": 10,
               "Environment": {
                 "Variables": {
-                  "USER_FILES_BUCKET": {
-                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_BUCKET\"]"
-                  },
+                  "USER_FILES_BUCKET": "user-files",
                   "USER_FILES_METADATA_TABLE": {
                     "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_METADATA_TABLE\"]"
                   },
@@ -344,7 +343,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1684413106824-2023-05-18T12:31:46.824Z/loginUser.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1686490666482-2023-06-11T13:37:46.482Z/loginUser.zip"
               },
               "Handler": "functions/LoginUser/lambda_function.lambda_handler",
               "Runtime": "python3.7",
@@ -353,9 +352,7 @@
               "Timeout": 10,
               "Environment": {
                 "Variables": {
-                  "USER_FILES_BUCKET": {
-                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_BUCKET\"]"
-                  },
+                  "USER_FILES_BUCKET": "user-files",
                   "USER_FILES_METADATA_TABLE": {
                     "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_METADATA_TABLE\"]"
                   },
@@ -382,7 +379,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1684413106824-2023-05-18T12:31:46.824Z/uploadFileToS3.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1686490666482-2023-06-11T13:37:46.482Z/uploadFileToS3.zip"
               },
               "Handler": "functions/UploadFileToS3Bucket/index.handler",
               "Runtime": "python3.7",
@@ -391,9 +388,7 @@
               "Timeout": 10,
               "Environment": {
                 "Variables": {
-                  "USER_FILES_BUCKET": {
-                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_BUCKET\"]"
-                  },
+                  "USER_FILES_BUCKET": "user-files",
                   "USER_FILES_METADATA_TABLE": {
                     "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_METADATA_TABLE\"]"
                   },
@@ -420,7 +415,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1684413106824-2023-05-18T12:31:46.824Z/updateFileMetadata.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1686490666482-2023-06-11T13:37:46.482Z/updateFileMetadata.zip"
               },
               "Handler": "functions/UpdateFileMetadata/lambda_function.lambda_handler",
               "Runtime": "python3.7",
@@ -429,9 +424,7 @@
               "Timeout": 10,
               "Environment": {
                 "Variables": {
-                  "USER_FILES_BUCKET": {
-                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_BUCKET\"]"
-                  },
+                  "USER_FILES_BUCKET": "user-files",
                   "USER_FILES_METADATA_TABLE": {
                     "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_METADATA_TABLE\"]"
                   },
@@ -458,7 +451,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1684413106824-2023-05-18T12:31:46.824Z/onS3BucketInsert.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1686490666482-2023-06-11T13:37:46.482Z/onS3BucketInsert.zip"
               },
               "Handler": "functions/OnS3BucketInsert/lambda_function.lambda_handler",
               "Runtime": "python3.7",
@@ -467,9 +460,7 @@
               "Timeout": 10,
               "Environment": {
                 "Variables": {
-                  "USER_FILES_BUCKET": {
-                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_BUCKET\"]"
-                  },
+                  "USER_FILES_BUCKET": "user-files",
                   "USER_FILES_METADATA_TABLE": {
                     "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_METADATA_TABLE\"]"
                   },
@@ -489,27 +480,37 @@
               "OnS3BucketInsertLogGroup"
             ]
           },
-          "DefaultAuthorizerLambdaVersionoEqUSzfyLP1G8vHxBzxlBMyykhW5uSTstsnzzSEdo": {
+          "DefaultAuthorizerLambdaVersioneoQbXOX3WjZb1kUdGxE2LWMxWkmD0YceDtoUUDaXbPQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DefaultAuthorizerLambdaFunction"
               },
-              "CodeSha256": "9z9eyZeCd4W+RbFS1yObHyojz4bWQZXVXf1DkC2Yfqo="
+              "CodeSha256": "z9UIFbp8FiuGMd1BgXArRs+SMgleMRcYCH6lntC+vZM="
             }
           },
-          "RegisterUserLambdaVersionbZAWwDvc352byOdJKcLDIA6o7NOevMIGMIUeIOhx1M": {
+          "RegisterUserLambdaVersioncEx1MMslE82TIaFmFON7X6Ssu5tmGVZGnWeT0Pirg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RegisterUserLambdaFunction"
               },
-              "CodeSha256": "dgOZlPVxVD0oTchfViNLupX4TykTexASET7+NnUG3f8="
+              "CodeSha256": "H+qT97e+xlXUjfyRml1eOJTkC3amqJaqOLCXynjpsvw="
             }
           },
-          "UpdateFileMetadataLambdaVersionK0zk3X7e7pEreuJ1rRFzYkicJQws8TpTwZ8BsIkRQ8": {
+          "LoginUserLambdaVersionuwjc5ibiIjGrYNHFdqoX1ziEvjXQnjM7ylCrnHLPI": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "LoginUserLambdaFunction"
+              },
+              "CodeSha256": "S4sHIUauNyrXHGHV9DEHplosz0TPTxR/IoS7ply+ufc="
+            }
+          },
+          "UpdateFileMetadataLambdaVersionGMlo3arEu5Y9dYkqpAAOYYlSGwZjLsAq7rF4CDg2XM": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
@@ -519,17 +520,7 @@
               "CodeSha256": "MR+D+DUf/vpgaNJBoc2q+AxQq7hPe69xI79W3oBj/YI="
             }
           },
-          "LoginUserLambdaVersiontpy39PSI1YelVx5DtPhQ2mK59kk3HqDWpsmgZ6hznM": {
-            "Type": "AWS::Lambda::Version",
-            "DeletionPolicy": "Retain",
-            "Properties": {
-              "FunctionName": {
-                "Ref": "LoginUserLambdaFunction"
-              },
-              "CodeSha256": "mbJeoeLmEHeR73FY80x2RnqM6Uy7z61lKlKttE2INmQ="
-            }
-          },
-          "OnS3BucketInsertLambdaVersion703XkV6DwOHFfKsISgOAeSWHQu5vA7gfH6DSa9r4": {
+          "OnS3BucketInsertLambdaVersionV1IYwzdTIkoN1ZxOf5E0pOU46ntQ8WBtUEI9lxu8Q": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
@@ -539,14 +530,14 @@
               "CodeSha256": "1kWiijEVAR6LsEVPT0iTlA2o7LIUKKmBZaRWBFFeJjM="
             }
           },
-          "UploadFileToS3LambdaVersionSoaYP3PwjqOPhjhBSrgIsn95cVFu4eKSs3qNAAB0NF4": {
+          "UploadFileToS3LambdaVersion8JLs6k8sEqxd9EgOpycexcOqzfAAozbO0AWzk1aeV7Q": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UploadFileToS3LambdaFunction"
               },
-              "CodeSha256": "yDqFN4flNFO4D18zU8f8i+QYmPqdEZ9RUy7+yvE/4zE="
+              "CodeSha256": "MfZBTNaWuWwvErSGIe78L039yF5OrQBy9Hy7ny5AMG4="
             }
           },
           "OnS3BucketInsertCustomS31": {
@@ -564,9 +555,7 @@
                 ]
               },
               "FunctionName": "cloud-computing-project-dev-onS3BucketInsert",
-              "BucketName": {
-                "Ref": "userFilesBucket"
-              },
+              "BucketName": "userFilesBucket",
               "BucketConfigs": [
                 {
                   "Event": "s3:ObjectCreated:*",
@@ -626,9 +615,7 @@
                               "s3",
                               "",
                               "",
-                              {
-                                "Ref": "userFilesBucket"
-                              }
+                              "userFilesBucket"
                             ]
                           ]
                         },
@@ -677,7 +664,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1684413106824-2023-05-18T12:31:46.824Z/custom-resources.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1686490666482-2023-06-11T13:37:46.482Z/custom-resources.zip"
               },
               "FunctionName": "cloud-computing-project-dev-custom-resource-existing-s3",
               "Handler": "s3/handler.handler",
@@ -1190,7 +1177,7 @@
               "Type": "TOKEN"
             }
           },
-          "ApiGatewayDeployment1684413102397": {
+          "ApiGatewayDeployment1686490659741": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -1394,12 +1381,6 @@
               }
             }
           },
-          "userFilesBucket": {
-            "Type": "AWS::S3::Bucket",
-            "Properties": {
-              "BucketName": "user-files-09"
-            }
-          },
           "userFilesMetadataTable": {
             "Type": "AWS::DynamoDB::Table",
             "DeletionPolicy": "Delete",
@@ -1481,7 +1462,7 @@
           "DefaultAuthorizerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DefaultAuthorizerLambdaVersionoEqUSzfyLP1G8vHxBzxlBMyykhW5uSTstsnzzSEdo"
+              "Ref": "DefaultAuthorizerLambdaVersioneoQbXOX3WjZb1kUdGxE2LWMxWkmD0YceDtoUUDaXbPQ"
             },
             "Export": {
               "Name": "sls-cloud-computing-project-dev-DefaultAuthorizerLambdaFunctionQualifiedArn"
@@ -1490,34 +1471,34 @@
           "RegisterUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RegisterUserLambdaVersionbZAWwDvc352byOdJKcLDIA6o7NOevMIGMIUeIOhx1M"
+              "Ref": "RegisterUserLambdaVersioncEx1MMslE82TIaFmFON7X6Ssu5tmGVZGnWeT0Pirg"
             },
             "Export": {
               "Name": "sls-cloud-computing-project-dev-RegisterUserLambdaFunctionQualifiedArn"
             }
           },
-          "UpdateFileMetadataLambdaFunctionQualifiedArn": {
-            "Description": "Current Lambda function version",
-            "Value": {
-              "Ref": "UpdateFileMetadataLambdaVersionK0zk3X7e7pEreuJ1rRFzYkicJQws8TpTwZ8BsIkRQ8"
-            },
-            "Export": {
-              "Name": "sls-cloud-computing-project-dev-UpdateFileMetadataLambdaFunctionQualifiedArn"
-            }
-          },
           "LoginUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "LoginUserLambdaVersiontpy39PSI1YelVx5DtPhQ2mK59kk3HqDWpsmgZ6hznM"
+              "Ref": "LoginUserLambdaVersionuwjc5ibiIjGrYNHFdqoX1ziEvjXQnjM7ylCrnHLPI"
             },
             "Export": {
               "Name": "sls-cloud-computing-project-dev-LoginUserLambdaFunctionQualifiedArn"
             }
           },
+          "UpdateFileMetadataLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "UpdateFileMetadataLambdaVersionGMlo3arEu5Y9dYkqpAAOYYlSGwZjLsAq7rF4CDg2XM"
+            },
+            "Export": {
+              "Name": "sls-cloud-computing-project-dev-UpdateFileMetadataLambdaFunctionQualifiedArn"
+            }
+          },
           "OnS3BucketInsertLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "OnS3BucketInsertLambdaVersion703XkV6DwOHFfKsISgOAeSWHQu5vA7gfH6DSa9r4"
+              "Ref": "OnS3BucketInsertLambdaVersionV1IYwzdTIkoN1ZxOf5E0pOU46ntQ8WBtUEI9lxu8Q"
             },
             "Export": {
               "Name": "sls-cloud-computing-project-dev-OnS3BucketInsertLambdaFunctionQualifiedArn"
@@ -1526,7 +1507,7 @@
           "UploadFileToS3LambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UploadFileToS3LambdaVersionSoaYP3PwjqOPhjhBSrgIsn95cVFu4eKSs3qNAAB0NF4"
+              "Ref": "UploadFileToS3LambdaVersion8JLs6k8sEqxd9EgOpycexcOqzfAAozbO0AWzk1aeV7Q"
             },
             "Export": {
               "Name": "sls-cloud-computing-project-dev-UploadFileToS3LambdaFunctionQualifiedArn"
@@ -1652,7 +1633,7 @@
           "patterns": [
             "functions/DefaultAuthorizer/**"
           ],
-          "artifact": "C:\\Users\\vlada\\Documents\\Fakultet\\6. Semestar\\Racunarstvo u oblaku\\Projekat\\LambdaFunctions\\.serverless\\defaultAuthorizer.zip"
+          "artifact": "C:\\Users\\vlada\\Documents\\Fakultet\\Racunarstvo u oblaku\\Projekat\\LambdaFunctions\\.serverless\\defaultAuthorizer.zip"
         },
         "events": [],
         "name": "cloud-computing-project-dev-defaultAuthorizer",
@@ -1660,7 +1641,7 @@
         "timeout": 10,
         "runtime": "python3.7",
         "vpc": {},
-        "versionLogicalId": "DefaultAuthorizerLambdaVersionoEqUSzfyLP1G8vHxBzxlBMyykhW5uSTstsnzzSEdo"
+        "versionLogicalId": "DefaultAuthorizerLambdaVersioneoQbXOX3WjZb1kUdGxE2LWMxWkmD0YceDtoUUDaXbPQ"
       },
       "registerUser": {
         "handler": "functions/RegisterUser/lambda_function.lambda_handler",
@@ -1668,7 +1649,7 @@
           "patterns": [
             "functions/RegisterUser/**"
           ],
-          "artifact": "C:\\Users\\vlada\\Documents\\Fakultet\\6. Semestar\\Racunarstvo u oblaku\\Projekat\\LambdaFunctions\\.serverless\\registerUser.zip"
+          "artifact": "C:\\Users\\vlada\\Documents\\Fakultet\\Racunarstvo u oblaku\\Projekat\\LambdaFunctions\\.serverless\\registerUser.zip"
         },
         "events": [
           {
@@ -1701,7 +1682,7 @@
         "timeout": 10,
         "runtime": "python3.7",
         "vpc": {},
-        "versionLogicalId": "RegisterUserLambdaVersionbZAWwDvc352byOdJKcLDIA6o7NOevMIGMIUeIOhx1M"
+        "versionLogicalId": "RegisterUserLambdaVersioncEx1MMslE82TIaFmFON7X6Ssu5tmGVZGnWeT0Pirg"
       },
       "loginUser": {
         "handler": "functions/LoginUser/lambda_function.lambda_handler",
@@ -1709,7 +1690,7 @@
           "patterns": [
             "functions/LoginUser/**"
           ],
-          "artifact": "C:\\Users\\vlada\\Documents\\Fakultet\\6. Semestar\\Racunarstvo u oblaku\\Projekat\\LambdaFunctions\\.serverless\\loginUser.zip"
+          "artifact": "C:\\Users\\vlada\\Documents\\Fakultet\\Racunarstvo u oblaku\\Projekat\\LambdaFunctions\\.serverless\\loginUser.zip"
         },
         "events": [
           {
@@ -1742,7 +1723,7 @@
         "timeout": 10,
         "runtime": "python3.7",
         "vpc": {},
-        "versionLogicalId": "LoginUserLambdaVersiontpy39PSI1YelVx5DtPhQ2mK59kk3HqDWpsmgZ6hznM"
+        "versionLogicalId": "LoginUserLambdaVersionuwjc5ibiIjGrYNHFdqoX1ziEvjXQnjM7ylCrnHLPI"
       },
       "uploadFileToS3": {
         "handler": "functions/UploadFileToS3Bucket/index.handler",
@@ -1750,7 +1731,7 @@
           "patterns": [
             "functions/UploadFileToS3Bucket/**"
           ],
-          "artifact": "C:\\Users\\vlada\\Documents\\Fakultet\\6. Semestar\\Racunarstvo u oblaku\\Projekat\\LambdaFunctions\\.serverless\\uploadFileToS3.zip"
+          "artifact": "C:\\Users\\vlada\\Documents\\Fakultet\\Racunarstvo u oblaku\\Projekat\\LambdaFunctions\\.serverless\\uploadFileToS3.zip"
         },
         "events": [
           {
@@ -1793,7 +1774,7 @@
         "timeout": 10,
         "runtime": "python3.7",
         "vpc": {},
-        "versionLogicalId": "UploadFileToS3LambdaVersionSoaYP3PwjqOPhjhBSrgIsn95cVFu4eKSs3qNAAB0NF4"
+        "versionLogicalId": "UploadFileToS3LambdaVersion8JLs6k8sEqxd9EgOpycexcOqzfAAozbO0AWzk1aeV7Q"
       },
       "updateFileMetadata": {
         "handler": "functions/UpdateFileMetadata/lambda_function.lambda_handler",
@@ -1801,7 +1782,7 @@
           "patterns": [
             "functions/UpdateFileMetadata/**"
           ],
-          "artifact": "C:\\Users\\vlada\\Documents\\Fakultet\\6. Semestar\\Racunarstvo u oblaku\\Projekat\\LambdaFunctions\\.serverless\\updateFileMetadata.zip"
+          "artifact": "C:\\Users\\vlada\\Documents\\Fakultet\\Racunarstvo u oblaku\\Projekat\\LambdaFunctions\\.serverless\\updateFileMetadata.zip"
         },
         "events": [
           {
@@ -1844,7 +1825,7 @@
         "timeout": 10,
         "runtime": "python3.7",
         "vpc": {},
-        "versionLogicalId": "UpdateFileMetadataLambdaVersionK0zk3X7e7pEreuJ1rRFzYkicJQws8TpTwZ8BsIkRQ8"
+        "versionLogicalId": "UpdateFileMetadataLambdaVersionGMlo3arEu5Y9dYkqpAAOYYlSGwZjLsAq7rF4CDg2XM"
       },
       "onS3BucketInsert": {
         "handler": "functions/OnS3BucketInsert/lambda_function.lambda_handler",
@@ -1852,23 +1833,19 @@
           "patterns": [
             "functions/OnS3BucketInsert/**"
           ],
-          "artifact": "C:\\Users\\vlada\\Documents\\Fakultet\\6. Semestar\\Racunarstvo u oblaku\\Projekat\\LambdaFunctions\\.serverless\\onS3BucketInsert.zip"
+          "artifact": "C:\\Users\\vlada\\Documents\\Fakultet\\Racunarstvo u oblaku\\Projekat\\LambdaFunctions\\.serverless\\onS3BucketInsert.zip"
         },
         "events": [
           {
             "s3": {
-              "bucket": {
-                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"IamRoleCustomResourcesLambdaExecution\"][\"Properties\"][\"Policies\"][0][\"PolicyDocument\"][\"Statement\"][0][\"Resource\"][\"Fn::Join\"][1][5]"
-              },
+              "bucket": "userFilesBucket",
               "event": "s3:ObjectCreated:*",
               "existing": true
             }
           },
           {
             "s3": {
-              "bucket": {
-                "Ref": "userFilesBucket"
-              },
+              "bucket": "userFilesBucket",
               "event": "s3:ObjectUpdated:*",
               "existing": true
             }
@@ -1879,17 +1856,11 @@
         "timeout": 10,
         "runtime": "python3.7",
         "vpc": {},
-        "versionLogicalId": "OnS3BucketInsertLambdaVersion703XkV6DwOHFfKsISgOAeSWHQu5vA7gfH6DSa9r4"
+        "versionLogicalId": "OnS3BucketInsertLambdaVersionV1IYwzdTIkoN1ZxOf5E0pOU46ntQ8WBtUEI9lxu8Q"
       }
     },
     "resources": {
       "Resources": {
-        "userFilesBucket": {
-          "Type": "AWS::S3::Bucket",
-          "Properties": {
-            "BucketName": "user-files-09"
-          }
-        },
         "userFilesMetadataTable": {
           "Type": "AWS::DynamoDB::Table",
           "DeletionPolicy": "Delete",
@@ -1975,7 +1946,7 @@
           "!**/**"
         ],
         "artifactsS3KeyDirname": "serverless/cloud-computing-project/dev/code-artifacts",
-        "artifactDirectoryName": "serverless/cloud-computing-project/dev/1684413106824-2023-05-18T12:31:46.824Z"
+        "artifactDirectoryName": "serverless/cloud-computing-project/dev/1686490666482-2023-06-11T13:37:46.482Z"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
@@ -1989,7 +1960,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/cloud-computing-project/dev/1684413106824-2023-05-18T12:31:46.824Z",
+    "artifactDirectoryName": "serverless/cloud-computing-project/dev/1686490666482-2023-06-11T13:37:46.482Z",
     "artifact": ""
   }
 }
