@@ -19,11 +19,11 @@ provider:
   timeout: 10
 
   s3:
-    user-files:
-      bucketName: user-files
+    userFilesBucket:
+      name: user-files-bucket-with-unique-name
 
   environment:
-    USER_FILES_BUCKET: 'user-files'
+    USER_FILES_BUCKET: 'user-files-bucket-with-unique-name'
     USER_FILES_METADATA_TABLE:
       Ref: userFilesMetadataTable
     USERS_TABLE:
@@ -50,7 +50,12 @@ provider:
             - s3:ListBucket
             - s3:PutBucketNotification
           Resource:
-            - "arn:aws:s3:::user-files/*"
+            - "arn:aws:s3:::user-files-bucket-with-unique-name/*"
+        # - Effect: Allow
+        #   Action:
+        #     - lambda:InvokeFunction
+        #   Resource:
+        #     - Ref: onS3BucketInsert
 
 
 package:
@@ -118,14 +123,26 @@ functions:
         - 'functions/OnS3BucketInsert/**'    
     events:
       - s3:
-          bucket: user-files
+          bucket: userFilesBucket
           event: s3:ObjectCreated:*
       - s3:
-          bucket: user-files
+          bucket: userFilesBucket
           event: s3:ObjectUpdated:*
 
 resources:
   Resources:
+    MyEventHandlerLambdaPermissionContainerS3:
+      Type: AWS::Lambda::Permission
+      Properties:
+        FunctionName:
+          "Fn::GetAtt":
+            - Ref: onS3BucketInsert
+            - Arn
+        Principal: "s3.amazonaws.com"
+        Action: "lambda:InvokeFunction"
+        SourceAccount:
+          Ref: AWS::AccountId
+        SourceArn: "arn:aws:s3:::user-files-bucket-with-unique-name"
     userFilesMetadataTable:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Delete
