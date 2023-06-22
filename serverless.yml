@@ -18,10 +18,6 @@ provider:
   # Function timeout in seconds (default 6s)
   timeout: 10
 
-  s3:
-    userFilesBucket:
-      name: user-files-bucket-with-unique-name
-
   environment:
     USER_FILES_BUCKET: 'user-files-bucket-with-unique-name'
     USER_FILES_METADATA_TABLE:
@@ -123,26 +119,11 @@ functions:
         - 'functions/OnS3BucketInsert/**'    
     events:
       - s3:
-          bucket: userFilesBucket
-          event: s3:ObjectCreated:*
-      - s3:
-          bucket: userFilesBucket
-          event: s3:ObjectUpdated:*
+          bucket: user-files-bucket-with-unique-name
+          event: s3:ObjectCreated:Put
 
 resources:
   Resources:
-    MyEventHandlerLambdaPermissionContainerS3:
-      Type: AWS::Lambda::Permission
-      Properties:
-        FunctionName:
-          "Fn::GetAtt":
-            - Ref: onS3BucketInsert
-            - Arn
-        Principal: "s3.amazonaws.com"
-        Action: "lambda:InvokeFunction"
-        SourceAccount:
-          Ref: AWS::AccountId
-        SourceArn: "arn:aws:s3:::user-files-bucket-with-unique-name"
     userFilesMetadataTable:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Delete
@@ -183,3 +164,19 @@ resources:
             ProvisionedThroughput:
               ReadCapacityUnits: 1
               WriteCapacityUnits: 1
+    S3BucketUserfilesbucketwithuniquename:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: user-files-bucket-with-unique-name
+    Ons3bucketinsertLambdaPermissionUserfilesbucketwithuniquenameS3:
+      Type: "AWS::Lambda::Permission"
+      Properties:
+        FunctionName:
+          "Fn::GetAtt":
+            - OnS3BucketInsertLambdaFunction
+            - Arn
+        Principal: "s3.amazonaws.com"
+        Action: "lambda:InvokeFunction"
+        SourceAccount:
+          Ref: AWS::AccountId
+        SourceArn: "arn:aws:s3:::user-files-bucket-with-unique-name"

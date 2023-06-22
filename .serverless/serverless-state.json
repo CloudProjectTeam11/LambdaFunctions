@@ -11,11 +11,6 @@
       "region": "eu-central-1",
       "memorySize": 128,
       "timeout": 10,
-      "s3": {
-        "userFilesBucket": {
-          "name": "user-files-bucket-with-unique-name"
-        }
-      },
       "environment": {
         "USER_FILES_BUCKET": "user-files-bucket-with-unique-name",
         "USER_FILES_METADATA_TABLE": {
@@ -268,7 +263,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687462738485-2023-06-22T19:38:58.485Z/defaultAuthorizer.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687469746949-2023-06-22T21:35:46.949Z/defaultAuthorizer.zip"
               },
               "Handler": "functions/DefaultAuthorizer/lambda_function.lambda_handler",
               "Runtime": "python3.7",
@@ -304,7 +299,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687462738485-2023-06-22T19:38:58.485Z/registerUser.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687469746949-2023-06-22T21:35:46.949Z/registerUser.zip"
               },
               "Handler": "functions/RegisterUser/lambda_function.lambda_handler",
               "Runtime": "python3.7",
@@ -340,7 +335,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687462738485-2023-06-22T19:38:58.485Z/loginUser.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687469746949-2023-06-22T21:35:46.949Z/loginUser.zip"
               },
               "Handler": "functions/LoginUser/lambda_function.lambda_handler",
               "Runtime": "python3.7",
@@ -376,7 +371,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687462738485-2023-06-22T19:38:58.485Z/uploadFileToS3.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687469746949-2023-06-22T21:35:46.949Z/uploadFileToS3.zip"
               },
               "Handler": "functions/UploadFileToS3Bucket/index.handler",
               "Runtime": "python3.7",
@@ -412,7 +407,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687462738485-2023-06-22T19:38:58.485Z/updateFileMetadata.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687469746949-2023-06-22T21:35:46.949Z/updateFileMetadata.zip"
               },
               "Handler": "functions/UpdateFileMetadata/lambda_function.lambda_handler",
               "Runtime": "python3.7",
@@ -448,7 +443,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687462738485-2023-06-22T19:38:58.485Z/onS3BucketInsert.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687469746949-2023-06-22T21:35:46.949Z/onS3BucketInsert.zip"
               },
               "Handler": "functions/OnS3BucketInsert/lambda_function.lambda_handler",
               "Runtime": "python3.7",
@@ -537,23 +532,14 @@
               "CodeSha256": "1kWiijEVAR6LsEVPT0iTlA2o7LIUKKmBZaRWBFFeJjM="
             }
           },
-          "S3BucketUserFilesBucket": {
+          "S3BucketUserfilesbucketwithuniquename": {
             "Type": "AWS::S3::Bucket",
             "Properties": {
               "BucketName": "user-files-bucket-with-unique-name",
               "NotificationConfiguration": {
                 "LambdaConfigurations": [
                   {
-                    "Event": "s3:ObjectCreated:*",
-                    "Function": {
-                      "Fn::GetAtt": [
-                        "OnS3BucketInsertLambdaFunction",
-                        "Arn"
-                      ]
-                    }
-                  },
-                  {
-                    "Event": "s3:ObjectUpdated:*",
+                    "Event": "s3:ObjectCreated:Put",
                     "Function": {
                       "Fn::GetAtt": [
                         "OnS3BucketInsertLambdaFunction",
@@ -565,11 +551,10 @@
               }
             },
             "DependsOn": [
-              "OnS3BucketInsertLambdaPermissionUserFilesBucketS3",
-              "OnS3BucketInsertLambdaPermissionUserFilesBucketS3"
+              "OnS3BucketInsertLambdaPermissionUserfilesbucketwithuniquenameS3"
             ]
           },
-          "OnS3BucketInsertLambdaPermissionUserFilesBucketS3": {
+          "OnS3BucketInsertLambdaPermissionUserfilesbucketwithuniquenameS3": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
@@ -1092,7 +1077,7 @@
               "Type": "TOKEN"
             }
           },
-          "ApiGatewayDeployment1687462735696": {
+          "ApiGatewayDeployment1687469744082": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -1296,25 +1281,6 @@
               }
             }
           },
-          "MyEventHandlerLambdaPermissionContainerS3": {
-            "Type": "AWS::Lambda::Permission",
-            "Properties": {
-              "FunctionName": {
-                "Fn::GetAtt": [
-                  {
-                    "Ref": "onS3BucketInsert"
-                  },
-                  "Arn"
-                ]
-              },
-              "Principal": "s3.amazonaws.com",
-              "Action": "lambda:InvokeFunction",
-              "SourceAccount": {
-                "Ref": "AWS::AccountId"
-              },
-              "SourceArn": "arn:aws:s3:::user-files-bucket-with-unique-name"
-            }
-          },
           "userFilesMetadataTable": {
             "Type": "AWS::DynamoDB::Table",
             "DeletionPolicy": "Delete",
@@ -1381,6 +1347,23 @@
                   }
                 }
               ]
+            }
+          },
+          "Ons3bucketinsertLambdaPermissionUserfilesbucketwithuniquenameS3": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "OnS3BucketInsertLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Principal": "s3.amazonaws.com",
+              "Action": "lambda:InvokeFunction",
+              "SourceAccount": {
+                "Ref": "AWS::AccountId"
+              },
+              "SourceArn": "arn:aws:s3:::user-files-bucket-with-unique-name"
             }
           }
         },
@@ -1772,14 +1755,8 @@
         "events": [
           {
             "s3": {
-              "bucket": "userFilesBucket",
-              "event": "s3:ObjectCreated:*"
-            }
-          },
-          {
-            "s3": {
-              "bucket": "userFilesBucket",
-              "event": "s3:ObjectUpdated:*"
+              "bucket": "user-files-bucket-with-unique-name",
+              "event": "s3:ObjectCreated:Put"
             }
           }
         ],
@@ -1793,25 +1770,6 @@
     },
     "resources": {
       "Resources": {
-        "MyEventHandlerLambdaPermissionContainerS3": {
-          "Type": "AWS::Lambda::Permission",
-          "Properties": {
-            "FunctionName": {
-              "Fn::GetAtt": [
-                {
-                  "Ref": "onS3BucketInsert"
-                },
-                "Arn"
-              ]
-            },
-            "Principal": "s3.amazonaws.com",
-            "Action": "lambda:InvokeFunction",
-            "SourceAccount": {
-              "Ref": "AWS::AccountId"
-            },
-            "SourceArn": "arn:aws:s3:::user-files-bucket-with-unique-name"
-          }
-        },
         "userFilesMetadataTable": {
           "Type": "AWS::DynamoDB::Table",
           "DeletionPolicy": "Delete",
@@ -1879,6 +1837,29 @@
               }
             ]
           }
+        },
+        "S3BucketUserfilesbucketwithuniquename": {
+          "Type": "AWS::S3::Bucket",
+          "Properties": {
+            "BucketName": "user-files-bucket-with-unique-name"
+          }
+        },
+        "Ons3bucketinsertLambdaPermissionUserfilesbucketwithuniquenameS3": {
+          "Type": "AWS::Lambda::Permission",
+          "Properties": {
+            "FunctionName": {
+              "Fn::GetAtt": [
+                "OnS3BucketInsertLambdaFunction",
+                "Arn"
+              ]
+            },
+            "Principal": "s3.amazonaws.com",
+            "Action": "lambda:InvokeFunction",
+            "SourceAccount": {
+              "Ref": "AWS::AccountId"
+            },
+            "SourceArn": "arn:aws:s3:::user-files-bucket-with-unique-name"
+          }
         }
       },
       "Outputs": {}
@@ -1897,7 +1878,7 @@
           "!**/**"
         ],
         "artifactsS3KeyDirname": "serverless/cloud-computing-project/dev/code-artifacts",
-        "artifactDirectoryName": "serverless/cloud-computing-project/dev/1687462738485-2023-06-22T19:38:58.485Z"
+        "artifactDirectoryName": "serverless/cloud-computing-project/dev/1687469746949-2023-06-22T21:35:46.949Z"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
@@ -1911,7 +1892,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/cloud-computing-project/dev/1687462738485-2023-06-22T19:38:58.485Z",
+    "artifactDirectoryName": "serverless/cloud-computing-project/dev/1687469746949-2023-06-22T21:35:46.949Z",
     "artifact": ""
   }
 }
