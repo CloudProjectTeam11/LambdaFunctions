@@ -17,10 +17,10 @@ provider:
   memorySize: 128
   # Function timeout in seconds (default 6s)
   timeout: 10
-  	
+
   s3:
-    userFilesBucket:
-      name: user-files
+    user-files:
+      bucketName: user-files
 
   environment:
     USER_FILES_BUCKET: 'user-files'
@@ -50,7 +50,6 @@ provider:
             - s3:ListBucket
             - s3:PutBucketNotification
           Resource:
-            - "arn:aws:s3:::user-files"
             - "arn:aws:s3:::user-files/*"
 
 
@@ -119,21 +118,14 @@ functions:
         - 'functions/OnS3BucketInsert/**'    
     events:
       - s3:
-          bucket: userFilesBucket
+          bucket: user-files
           event: s3:ObjectCreated:*
-          existing: true
       - s3:
-          bucket: userFilesBucket
+          bucket: user-files
           event: s3:ObjectUpdated:*
-          existing: true
 
 resources:
   Resources:
-  #   userFilesBucket:
-  #     Type: AWS::S3::Bucket
-  #     Properties:
-  #       BucketName: user-files
-
     userFilesMetadataTable:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Delete
