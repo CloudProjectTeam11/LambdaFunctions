@@ -3,6 +3,7 @@ const AWS = require("functions/UploadFileToS3Bucket/node_modules/aws-sdk");
 const uuid = require("functions/UploadFileToS3Bucket/node_modules/uuid");
 
 var s3 = new AWS.S3();
+var dynamodb = new AWS.DynamoDB();
 const userFilesBucketName = process.env.USER_FILES_BUCKET;
 
 async function getS3Object(objectKey) {
@@ -25,10 +26,40 @@ exports.handler = async (event, context, callback) => {
 
     let user = event.requestContext.authorizer["X-User-Id"];
     let parts = multipart.Parse(bodyBuffer, boundary);
-    let folder = event.queryStringParameters["folder"];
+    let album = event.queryStringParameters["album"];
     let filename = parts[0].filename;
-    if (folder != undefined){
-        filename = folder + "/" + filename;
+
+    let dynamoParams = {
+        TableName: "AlbumsTable",
+        Key: "album"
+    };
+    const albumResult = await dynamodb.get(dynamoParams).promise();
+    if(result.Item){
+        const albumObj = result.Item;
+        if(album.Owner != user){
+            return {
+                statusCode: 403,
+                headers: {
+                    "Access-Control-Allow-Origin" : "*",
+                    "Access-Control-Allow-Credentials" : "true",
+                    "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+                    "Access-Control-Allow-Headers" : "Access-Control-Allow-Headers, authenticationToken, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+                },
+                body: JSON.stringify({"message": "You have no access rights to this album"})
+            };
+        }
+    }
+    else{
+        return {
+            statusCode: 404,
+            headers: {
+                "Access-Control-Allow-Origin" : "*",
+                "Access-Control-Allow-Credentials" : "true",
+                "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+                "Access-Control-Allow-Headers" : "Access-Control-Allow-Headers, authenticationToken, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+            },
+            body: JSON.stringify({"message": "Album with given id not found"})
+        };
     }
     filename = user + "/" + filename;
 
@@ -39,7 +70,7 @@ exports.handler = async (event, context, callback) => {
     let params = {
         "Body" : decodedImage,
         "Bucket": userFilesBucketName,
-        "Key" : filename,
+        "Key" : filename
     }
     let fileId = "";
     if(data == undefined){
@@ -47,14 +78,16 @@ exports.handler = async (event, context, callback) => {
         params["Metadata"] = {
             "file-id" : fileId,
             "user-id" : user,
-            "is-changed" : "false"
+            "is-changed" : "false",
+            "album" : album
         };
     }else{        
         fileId = data.Metadata["file-id"];
         params["Metadata"] = {
             "file-id" : fileId,
             "user-id" : user,
-            "is-changed":"true"
+            "is-changed":"true",
+            "album" : album
         }
     }
     console.log(params);
