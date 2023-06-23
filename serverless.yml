@@ -19,11 +19,13 @@ provider:
   timeout: 10
 
   environment:
-    USER_FILES_BUCKET: 'user-files-bucket-with-unique-name'
+    USER_FILES_BUCKET: user-files-bucket-with-unique-name'
     USER_FILES_METADATA_TABLE:
       Ref: userFilesMetadataTable
     USERS_TABLE:
       Ref: usersTable
+    ALBUMS_TABLE:
+      Ref: albumsTable
   iam:
     role:
       statements:
@@ -47,11 +49,6 @@ provider:
             - s3:PutBucketNotification
           Resource:
             - "arn:aws:s3:::user-files-bucket-with-unique-name/*"
-        # - Effect: Allow
-        #   Action:
-        #     - lambda:InvokeFunction
-        #   Resource:
-        #     - Ref: onS3BucketInsert
 
 
 package:
@@ -93,7 +90,7 @@ functions:
         - 'functions/UploadFileToS3Bucket/**'
     events:
       - http:
-          path: resources/upload
+          path: resources
           method: post
           cors: true
           authorizer:
@@ -112,6 +109,45 @@ functions:
           authorizer:
             name: defaultAuthorizer
             resultTtlInSeconds: 300
+  getUserFilesMetadata:
+    handler: functions/GetUserFilesMetadata/lambda_function.lambda_handler
+    package:
+      patterns:
+        - 'functions/GetUserFilesMetadata/**'
+    events:
+      - http:
+          path: resources/metadata
+          method: get
+          cors: true
+          authorizer:
+            name: defaultAuthorizer
+            resultTtlInSeconds: 300
+  deleteFile:
+    handler: functions/DeleteFile/lamda_function.lambda_handler
+    package:
+      patterns:
+        - 'functions/DeleteFile/**'
+    events:
+      - http:
+          path: resources
+          method: delete
+          cors: true
+          authorizer:
+            name: defaultAuthorizer
+            resultTtlInSeconds: 300
+  shareAlbum:
+    handler: functions/ShareAlbum/lamda_function.lambda_handler
+    package:
+      patterns:
+        - 'functions/ShareAlbum/**'
+    events:
+      - http:
+          path: album/share
+          method: post
+          cors: true
+          authorizer:
+            name: defaultAuthorizer
+            resultTtlInSeconds: 300
   onS3BucketInsert:
     handler: functions/OnS3BucketInsert/lambda_function.lambda_handler
     package:
@@ -124,6 +160,20 @@ functions:
 
 resources:
   Resources:
+    albumsTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Delete
+      Properties:
+        TableName: Albums
+        AttributeDefinitions:
+          - AttributeName: album_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: album_id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
     userFilesMetadataTable:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Delete

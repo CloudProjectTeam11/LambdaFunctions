@@ -2,12 +2,11 @@ import json
 import boto3
 import os
 
-bucket_name = os.environ["USER_FILES_BUCKET"]
-table_name = os.environ["USER_FILES_METADATA_TABLE"]
+albums_table = os.environ["ALBUMS_TABLE"]
 
 def get_album(album):
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table("albumsTable")
+    table = dynamodb.Table(albums_table)
     response = table.get_item(Key={'id': album})
     return response.get('Item')
 
@@ -51,7 +50,7 @@ def lambda_handler(event, context):
         }
     dynamodb = boto3.resource('dynamodb')
     dynamodb.update_item(
-        TableName="albumsTable",
+        TableName=albums_table,
         Key={
             'id': body["album"]
         },

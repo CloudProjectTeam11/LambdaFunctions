@@ -16,6 +16,7 @@ def lambda_handler(event, context):
     file_id = metadata["file-id"]
     is_changed = metadata["is-changed"]
     user_id = metadata["user-id"]
+    album = metadata["album"]
     current_time = datetime.datetime.now().isoformat()
     
     dynamodb = boto3.client('dynamodb')
@@ -29,7 +30,8 @@ def lambda_handler(event, context):
                     'description': {'S': ''},
                     'file_key': {'S': filename},
                     'last_modified': {'S': current_time},
-                    'user': {'S': user_id}
+                    'user': {'S': user_id},
+                    'album': {'S', album}
                 }
             )
     
