@@ -54,9 +54,9 @@ def lambda_handler(event, context):
         Key={
             'id': body["album"]
         },
-        UpdateExpression='SET sharedWith = list_append(sharedWith, :users)',
+        UpdateExpression='ADD sharedWith = :users',
         ExpressionAttributeValues={
-            ':users': body["sharing_with"]
+            ':users': set([body["sharing_with"]])
         }
     )
     return{

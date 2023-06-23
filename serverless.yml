@@ -135,6 +135,19 @@ functions:
           authorizer:
             name: defaultAuthorizer
             resultTtlInSeconds: 300
+  createAlbum:
+    handler: functions/CreateAlbum/lamda_function.lambda_handler
+    package:
+      patterns:
+        - 'functions/CreateAlbum/**'
+    events:
+      - http:
+          path: album
+          method: post
+          cors: true
+          authorizer:
+            name: defaultAuthorizer
+            resultTtlInSeconds: 300  
   shareAlbum:
     handler: functions/ShareAlbum/lamda_function.lambda_handler
     package:
