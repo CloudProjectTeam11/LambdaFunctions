@@ -19,7 +19,7 @@ provider:
   timeout: 10
 
   environment:
-    USER_FILES_BUCKET: user-files-bucket-with-unique-name'
+    USER_FILES_BUCKET: user-files-bucket-with-unique-name
     USER_FILES_METADATA_TABLE:
       Ref: userFilesMetadataTable
     USERS_TABLE:
@@ -89,6 +89,7 @@ functions:
           method: post
           cors: true
   uploadFileToS3:
+    runtime: nodejs18.x
     handler: functions/UploadFileToS3Bucket/index.handler
     package:
       patterns:
