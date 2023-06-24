@@ -40,6 +40,7 @@ provider:
             - dynamodb:DeleteItem
           Resource:
             - "Fn::GetAtt": [userFilesMetadataTable, Arn]
+            - "Fn::GetAtt": [albumsTable, Arn]
             - "Fn::GetAtt": [usersTable, Arn]
             -  "Fn::Join": 
                 - ""
@@ -99,7 +100,8 @@ functions:
           cors: true
           authorizer:
             name: defaultAuthorizer
-            resultTtlInSeconds: 300
+            identitySource: method.request.header.authorizationToken
+            type: token
   updateFileMetadata:
     handler: functions/UpdateFileMetadata/lambda_function.lambda_handler
     package:
@@ -112,7 +114,8 @@ functions:
           cors: true
           authorizer:
             name: defaultAuthorizer
-            resultTtlInSeconds: 300
+            identitySource: method.request.header.authorizationToken
+            type: token
   getUserFilesMetadata:
     handler: functions/GetUserFilesMetadata/lambda_function.lambda_handler
     package:
@@ -125,9 +128,10 @@ functions:
           cors: true
           authorizer:
             name: defaultAuthorizer
-            resultTtlInSeconds: 300
+            identitySource: method.request.header.authorizationToken
+            type: token
   deleteFile:
-    handler: functions/DeleteFile/lamda_function.lambda_handler
+    handler: functions/DeleteFile/lambda_function.lambda_handler
     package:
       patterns:
         - 'functions/DeleteFile/**'
@@ -138,9 +142,10 @@ functions:
           cors: true
           authorizer:
             name: defaultAuthorizer
-            resultTtlInSeconds: 300
+            identitySource: method.request.header.authorizationToken
+            type: token
   createAlbum:
-    handler: functions/CreateAlbum/lamda_function.lambda_handler
+    handler: functions/CreateAlbum/lambda_function.lambda_handler
     package:
       patterns:
         - 'functions/CreateAlbum/**'
@@ -151,9 +156,10 @@ functions:
           cors: true
           authorizer:
             name: defaultAuthorizer
-            resultTtlInSeconds: 300  
+            identitySource: method.request.header.authorizationToken
+            type: token
   shareAlbum:
-    handler: functions/ShareAlbum/lamda_function.lambda_handler
+    handler: functions/ShareAlbum/lambda_function.lambda_handler
     package:
       patterns:
         - 'functions/ShareAlbum/**'
@@ -164,7 +170,8 @@ functions:
           cors: true
           authorizer:
             name: defaultAuthorizer
-            resultTtlInSeconds: 300
+            identitySource: method.request.header.authorizationToken
+            type: token
   onS3BucketInsert:
     handler: functions/OnS3BucketInsert/lambda_function.lambda_handler
     package:

@@ -9,10 +9,10 @@ def is_duplicate_name(name: str, user: str):
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(albums_table)
     response = table.scan(
-        FilterExpression='name = :album_name AND owner = :owner',
+        FilterExpression='album_name = :album_name AND album_owner = :album_owner',
         ExpressionAttributeValues={
             ':album_name':name,
-            'owner':user        
+            ':album_owner':user
         }
     )
     if response['Items']:
@@ -22,9 +22,9 @@ def is_duplicate_name(name: str, user: str):
 def create_album(name, user):
     album_id = uuid.uuid1()
     album = {
-        "id":album_id,
-        "name":name,
-        "owner":user,
+        "album_id":str(album_id),
+        "album_name":name,
+        "album_owner":user,
         "sharedWith":{}
     }
     dynamodb = boto3.resource('dynamodb')
@@ -33,6 +33,7 @@ def create_album(name, user):
     return album
 
 def lambda_handler(event, context):
+    print(event)
     user = event["requestContext"]["authorizer"]["X-User-Id"]
     try:
         body = json.loads(event['body'])

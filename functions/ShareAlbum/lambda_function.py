@@ -7,7 +7,7 @@ albums_table = os.environ["ALBUMS_TABLE"]
 def get_album(album):
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(albums_table)
-    response = table.get_item(Key={'id': album})
+    response = table.get_item(Key={'album_id': album})
     return response.get('Item')
 
 def lambda_handler(event, context):
@@ -46,13 +46,13 @@ def lambda_handler(event, context):
             'headers': {
                 'Access-Control-Allow-Origin': '*',
             },
-            'body': json.dumps({'message': "You don't have ownership right for this album"})
+            'body': json.dumps({'message': "You don't have ownership rights for this album"})
         }
     dynamodb = boto3.resource('dynamodb')
     dynamodb.update_item(
         TableName=albums_table,
         Key={
-            'id': body["album"]
+            'album_id': body["album"]
         },
         UpdateExpression='ADD sharedWith = :users',
         ExpressionAttributeValues={
