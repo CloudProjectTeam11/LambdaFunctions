@@ -22,7 +22,7 @@ def check_email_exist(email: str):
 	dynamodb = boto3.resource('dynamodb')
 	table = dynamodb.Table(users_table)
 	response = table.query(
-		IndexName='email-index',
+		IndexName='EmailIndex',
 		KeyConditionExpression=Key('email').eq(email)
 	)
 	return response['Count'] == 0

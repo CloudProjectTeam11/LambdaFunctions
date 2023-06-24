@@ -17,7 +17,7 @@ def validate_user(email : str, password : str):
     table = dynamodb.Table(users_table)
     hashed_password = hash_password(password)
     response = table.query(
-        IndexName='email-index',
+        IndexName='EmailIndex',
         KeyConditionExpression=Key('email').eq(email)
     )
     if response['Count'] != 1:
