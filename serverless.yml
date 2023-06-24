@@ -8,7 +8,7 @@ provider:
   # Cloud provider name
   name: aws
   # Lambda function runtime enviroment
-  runtime: python3.7
+  runtime: python3.8
   # Deployment stage
   stage: dev
   # Deplotment region
@@ -58,7 +58,7 @@ provider:
 package:
   individually: true
   patterns:
-    - '!*/*'
+    - '!**/**'
 
 # Lambda functions
 functions:
