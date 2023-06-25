@@ -26,7 +26,7 @@ def lambda_handler(event, context):
     if not file_id:
         return {
             'statusCode': 400,
-            'body': json.dumps('Missing file identificator')
+            'body': json.dumps({'message':'Missing file identificator'})
         }
         
     table = dynamodb.Table(table_name)
@@ -47,7 +47,7 @@ def lambda_handler(event, context):
     if user != userTable["Item"]["user"]:
         return {
             'statusCode': 403,
-            'body': json.dumps('Invalid user')
+            'body': json.dumps({'message':'Invalid user'})
         }
     update_expression = 'SET #desc = :desc, #tags = :tags'
     expression_attribute_names = {'#desc': 'description', '#tags': 'tags'}
@@ -61,5 +61,5 @@ def lambda_handler(event, context):
     
     return {
         'statusCode': 200,
-        'body': json.dumps('File updated successfully')
+        'body': json.dumps({'message':'File updated successfully'})
     }

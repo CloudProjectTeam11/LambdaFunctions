@@ -111,7 +111,7 @@ functions:
     events:
       - http:
           path: resources/metadata
-          method: post
+          method: put
           cors: true
           authorizer:
             name: defaultAuthorizer

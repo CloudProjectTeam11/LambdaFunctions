@@ -17,35 +17,37 @@ def lambda_handler(event, context):
             },
             'body': json.dumps({'message': 'Invalid request'})
         }
+    user = event["requestContext"]["authorizer"]["X-User-Id"]
 
-    username = body['username']
-    folder = body.get('folder')
+    album = body.get('album')
 
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(files_metadata_table)
 
     expression_attribute_values = {
-        ':user': username
+        ':user': user
     }
-    filter_expression = '#usr = :user'
+    filter_expression = '#username = :user'
 
-    if folder:
-        expression_attribute_values[':folder'] = f'{username}/{folder}/'
-        filter_expression += ' and begins_with(file_key, :folder)'
+    if album:
+        expression_attribute_values[':album'] = album
+        filter_expression += ' AND album = :album'
 
     response = table.scan(
         FilterExpression=filter_expression,
+        ExpressionAttributeValues=expression_attribute_values,
         ExpressionAttributeNames={
-            '#usr': 'user'
-        },
-        ExpressionAttributeValues=expression_attribute_values
+            '#username': 'user'
+        }
     )
 
     files = response['Items']
     
     # Convert last_modified string to date and sort in descending order
     files = sorted(files, key=lambda x: datetime.fromisoformat(x['last_modified']), reverse=True)
-
+    files = list(files)
+    for file in files:
+        file["tags"] = list(file["tags"])
     return {
         'statusCode': 200,
         'headers': {
