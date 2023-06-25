@@ -182,6 +182,9 @@ functions:
       - s3:
           bucket: user-files-bucket-with-unique-name
           event: s3:ObjectCreated:Put
+      - s3:
+          bucket: user-files-bucket-with-unique-name
+          event: s3:ObjectCreated:Post
 
 resources:
   Resources:

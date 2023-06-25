@@ -31,7 +31,7 @@ def lambda_handler(event, context):
                     'file_key': {'S': filename},
                     'last_modified': {'S': current_time},
                     'user': {'S': user_id},
-                    'album': {'S', album}
+                    'album': {'S': album}
                 }
             )
     
@@ -39,11 +39,11 @@ def lambda_handler(event, context):
         dynamodb.update_item(
             TableName=table_name,
             Key={
-                'file_id': file_id
+                'file_id': {'S':file_id}
             },
             UpdateExpression='SET last_modified = :new_datetime',
             ExpressionAttributeValues={
-                ':new_datetime': current_time
+                ':new_datetime': {'S':current_time}
             }
         )  
     

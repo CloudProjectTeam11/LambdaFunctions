@@ -8,7 +8,7 @@ def get_album(album):
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(albums_table)
     response = table.get_item(Key={'album_id': album})
-    return response.get('Item')
+    return response['Item']
 
 def lambda_handler(event, context):
     user = event["requestContext"]["authorizer"]["X-User-Id"]
@@ -40,7 +40,7 @@ def lambda_handler(event, context):
             },
             'body': json.dumps({'message': 'Album not found'})
         }
-    if album["owner"] != user:
+    if album["album_owner"] != user:
         return {
             'statusCode': 403,
             'headers': {
@@ -48,15 +48,16 @@ def lambda_handler(event, context):
             },
             'body': json.dumps({'message': "You don't have ownership rights for this album"})
         }
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.client('dynamodb')
+    print(body["sharing_with"])
     dynamodb.update_item(
         TableName=albums_table,
         Key={
-            'album_id': body["album"]
+            'album_id': {'S':body["album"]}
         },
-        UpdateExpression='ADD sharedWith = :users',
+        UpdateExpression='ADD shared_with :users',
         ExpressionAttributeValues={
-            ':users': set([body["sharing_with"]])
+            ':users': {'SS':body["sharing_with"]}
         }
     )
     return{

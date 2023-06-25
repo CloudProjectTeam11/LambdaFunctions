@@ -310,7 +310,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687639149609-2023-06-24T20:39:09.609Z/defaultAuthorizer.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687652412555-2023-06-25T00:20:12.555Z/defaultAuthorizer.zip"
               },
               "Handler": "functions/DefaultAuthorizer/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -349,7 +349,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687639149609-2023-06-24T20:39:09.609Z/registerUser.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687652412555-2023-06-25T00:20:12.555Z/registerUser.zip"
               },
               "Handler": "functions/RegisterUser/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -388,7 +388,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687639149609-2023-06-24T20:39:09.609Z/loginUser.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687652412555-2023-06-25T00:20:12.555Z/loginUser.zip"
               },
               "Handler": "functions/LoginUser/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -427,7 +427,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687639149609-2023-06-24T20:39:09.609Z/uploadFileToS3.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687652412555-2023-06-25T00:20:12.555Z/uploadFileToS3.zip"
               },
               "Handler": "functions/UploadFileToS3Bucket/index.handler",
               "Runtime": "nodejs18.x",
@@ -466,7 +466,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687639149609-2023-06-24T20:39:09.609Z/updateFileMetadata.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687652412555-2023-06-25T00:20:12.555Z/updateFileMetadata.zip"
               },
               "Handler": "functions/UpdateFileMetadata/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -505,7 +505,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687639149609-2023-06-24T20:39:09.609Z/getUserFilesMetadata.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687652412555-2023-06-25T00:20:12.555Z/getUserFilesMetadata.zip"
               },
               "Handler": "functions/GetUserFilesMetadata/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -544,7 +544,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687639149609-2023-06-24T20:39:09.609Z/deleteFile.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687652412555-2023-06-25T00:20:12.555Z/deleteFile.zip"
               },
               "Handler": "functions/DeleteFile/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -583,7 +583,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687639149609-2023-06-24T20:39:09.609Z/createAlbum.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687652412555-2023-06-25T00:20:12.555Z/createAlbum.zip"
               },
               "Handler": "functions/CreateAlbum/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -622,7 +622,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687639149609-2023-06-24T20:39:09.609Z/shareAlbum.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687652412555-2023-06-25T00:20:12.555Z/shareAlbum.zip"
               },
               "Handler": "functions/ShareAlbum/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -661,7 +661,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687639149609-2023-06-24T20:39:09.609Z/onS3BucketInsert.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687652412555-2023-06-25T00:20:12.555Z/onS3BucketInsert.zip"
               },
               "Handler": "functions/OnS3BucketInsert/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -693,16 +693,6 @@
               "OnS3BucketInsertLogGroup"
             ]
           },
-          "LoginUserLambdaVersioncaMEysF0GL3PkaH5ilFROCi5uZ03xQjrfGgmWilQBvg": {
-            "Type": "AWS::Lambda::Version",
-            "DeletionPolicy": "Retain",
-            "Properties": {
-              "FunctionName": {
-                "Ref": "LoginUserLambdaFunction"
-              },
-              "CodeSha256": "PbyY5kPSNgN4+NiLVWPLSlg1eQalYMQoNYaWyVcFy+s="
-            }
-          },
           "DefaultAuthorizerLambdaVersion9P9JnuCcR8TaloNCu1Bs9KcmtI57gm3darYg3DuAQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
@@ -723,14 +713,14 @@
               "CodeSha256": "n+qJIzi6F0uORwJPkt5PBqAZJvw3ZWxI2y4z5tNzTi8="
             }
           },
-          "UpdateFileMetadataLambdaVersionOFwXVQQaTOpi0PFXHR95mtAkT2WMfumLSabahAFadHY": {
+          "LoginUserLambdaVersioncaMEysF0GL3PkaH5ilFROCi5uZ03xQjrfGgmWilQBvg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
-                "Ref": "UpdateFileMetadataLambdaFunction"
+                "Ref": "LoginUserLambdaFunction"
               },
-              "CodeSha256": "MR+D+DUf/vpgaNJBoc2q+AxQq7hPe69xI79W3oBj/YI="
+              "CodeSha256": "PbyY5kPSNgN4+NiLVWPLSlg1eQalYMQoNYaWyVcFy+s="
             }
           },
           "GetUserFilesMetadataLambdaVersionO1grUotH1YVvPYRHXITyfi3TYVQgWR7ELVapwepqE": {
@@ -743,6 +733,16 @@
               "CodeSha256": "IbYiHIfZHeZHfoLbBJHvnokjxXG6edKQ7ueyLKdWv8I="
             }
           },
+          "UpdateFileMetadataLambdaVersionOFwXVQQaTOpi0PFXHR95mtAkT2WMfumLSabahAFadHY": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "UpdateFileMetadataLambdaFunction"
+              },
+              "CodeSha256": "MR+D+DUf/vpgaNJBoc2q+AxQq7hPe69xI79W3oBj/YI="
+            }
+          },
           "DeleteFileLambdaVersionVtOTvvTPWOnkdmZdzkxDfSWtf8GkEIN0XjBy7STA90": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
@@ -753,34 +753,34 @@
               "CodeSha256": "nU7/jdc1k5JuVwNdpqJNYmwUDpxGwdrFcb44iK7zRd0="
             }
           },
-          "CreateAlbumLambdaVersionaq7g9zjdWIRkahequpEgqvrOw5OtUmRSTqLWIH70x0": {
+          "CreateAlbumLambdaVersionY65ubeHaIBcmMquwMu9wskqGX3DOmc9mCQaCzrg4Qs": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CreateAlbumLambdaFunction"
               },
-              "CodeSha256": "H1TW/q2tsRqQF9ZsJ4lgCnR9pwdgOInJrIIbIjPAuyk="
+              "CodeSha256": "u9p7ikmxc/Z0HwakjHP5GPszJ7IBFPOzBm1Ga1waK8A="
             }
           },
-          "ShareAlbumLambdaVersionLLHTOnVgoQzbeQJ5yWW2sO0CF1ANhJA5lb5QjDdOYo": {
+          "ShareAlbumLambdaVersionhnqXWUSZnZZz3bEBoOglRxs6SOhTvhfNZ4P3duTq1M": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ShareAlbumLambdaFunction"
               },
-              "CodeSha256": "AeVilESe9Fi2kcFd0c8VoWvK6Z0IMz3r8cUqJxUFEHg="
+              "CodeSha256": "1/RkIgi2f9J4B2PRYFE2VS017ukaBugkPRsF36TNJH0="
             }
           },
-          "OnS3BucketInsertLambdaVersion43WYSfv4pnqcUxvzymEzQkQWTl5wuO2kSlWv1OGPhk": {
+          "OnS3BucketInsertLambdaVersionRN2Ssec7XerA6SLg29AXFrd9a1Fda31AwY6e50gQA": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "OnS3BucketInsertLambdaFunction"
               },
-              "CodeSha256": "xiq37602aMHNEei+etT9w/vVhErCjvYGhXY1XwgGF5c="
+              "CodeSha256": "CAqYcTGo3mNC6j9zbHY1AXlF0J9cwxUoENF50U2VrjY="
             }
           },
           "UploadFileToS3LambdaVersionNKlQxVukPEn6RpWIrkiR3uiOQiSGK70UUQliX3jQ": {
@@ -807,11 +807,21 @@
                         "Arn"
                       ]
                     }
+                  },
+                  {
+                    "Event": "s3:ObjectCreated:Post",
+                    "Function": {
+                      "Fn::GetAtt": [
+                        "OnS3BucketInsertLambdaFunction",
+                        "Arn"
+                      ]
+                    }
                   }
                 ]
               }
             },
             "DependsOn": [
+              "OnS3BucketInsertLambdaPermissionUserfilesbucketwithuniquenameS3",
               "OnS3BucketInsertLambdaPermissionUserfilesbucketwithuniquenameS3"
             ]
           },
@@ -1639,7 +1649,7 @@
               "Type": "TOKEN"
             }
           },
-          "ApiGatewayDeployment1687639144128": {
+          "ApiGatewayDeployment1687652407668": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -2115,15 +2125,6 @@
               "Name": "sls-cloud-computing-project-dev-ServerlessDeploymentBucketName"
             }
           },
-          "LoginUserLambdaFunctionQualifiedArn": {
-            "Description": "Current Lambda function version",
-            "Value": {
-              "Ref": "LoginUserLambdaVersioncaMEysF0GL3PkaH5ilFROCi5uZ03xQjrfGgmWilQBvg"
-            },
-            "Export": {
-              "Name": "sls-cloud-computing-project-dev-LoginUserLambdaFunctionQualifiedArn"
-            }
-          },
           "DefaultAuthorizerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
@@ -2142,13 +2143,13 @@
               "Name": "sls-cloud-computing-project-dev-RegisterUserLambdaFunctionQualifiedArn"
             }
           },
-          "UpdateFileMetadataLambdaFunctionQualifiedArn": {
+          "LoginUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateFileMetadataLambdaVersionOFwXVQQaTOpi0PFXHR95mtAkT2WMfumLSabahAFadHY"
+              "Ref": "LoginUserLambdaVersioncaMEysF0GL3PkaH5ilFROCi5uZ03xQjrfGgmWilQBvg"
             },
             "Export": {
-              "Name": "sls-cloud-computing-project-dev-UpdateFileMetadataLambdaFunctionQualifiedArn"
+              "Name": "sls-cloud-computing-project-dev-LoginUserLambdaFunctionQualifiedArn"
             }
           },
           "GetUserFilesMetadataLambdaFunctionQualifiedArn": {
@@ -2158,6 +2159,15 @@
             },
             "Export": {
               "Name": "sls-cloud-computing-project-dev-GetUserFilesMetadataLambdaFunctionQualifiedArn"
+            }
+          },
+          "UpdateFileMetadataLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "UpdateFileMetadataLambdaVersionOFwXVQQaTOpi0PFXHR95mtAkT2WMfumLSabahAFadHY"
+            },
+            "Export": {
+              "Name": "sls-cloud-computing-project-dev-UpdateFileMetadataLambdaFunctionQualifiedArn"
             }
           },
           "DeleteFileLambdaFunctionQualifiedArn": {
@@ -2172,7 +2182,7 @@
           "CreateAlbumLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreateAlbumLambdaVersionaq7g9zjdWIRkahequpEgqvrOw5OtUmRSTqLWIH70x0"
+              "Ref": "CreateAlbumLambdaVersionY65ubeHaIBcmMquwMu9wskqGX3DOmc9mCQaCzrg4Qs"
             },
             "Export": {
               "Name": "sls-cloud-computing-project-dev-CreateAlbumLambdaFunctionQualifiedArn"
@@ -2181,7 +2191,7 @@
           "ShareAlbumLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ShareAlbumLambdaVersionLLHTOnVgoQzbeQJ5yWW2sO0CF1ANhJA5lb5QjDdOYo"
+              "Ref": "ShareAlbumLambdaVersionhnqXWUSZnZZz3bEBoOglRxs6SOhTvhfNZ4P3duTq1M"
             },
             "Export": {
               "Name": "sls-cloud-computing-project-dev-ShareAlbumLambdaFunctionQualifiedArn"
@@ -2190,7 +2200,7 @@
           "OnS3BucketInsertLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "OnS3BucketInsertLambdaVersion43WYSfv4pnqcUxvzymEzQkQWTl5wuO2kSlWv1OGPhk"
+              "Ref": "OnS3BucketInsertLambdaVersionRN2Ssec7XerA6SLg29AXFrd9a1Fda31AwY6e50gQA"
             },
             "Export": {
               "Name": "sls-cloud-computing-project-dev-OnS3BucketInsertLambdaFunctionQualifiedArn"
@@ -2675,7 +2685,7 @@
         "timeout": 10,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "CreateAlbumLambdaVersionaq7g9zjdWIRkahequpEgqvrOw5OtUmRSTqLWIH70x0"
+        "versionLogicalId": "CreateAlbumLambdaVersionY65ubeHaIBcmMquwMu9wskqGX3DOmc9mCQaCzrg4Qs"
       },
       "shareAlbum": {
         "handler": "functions/ShareAlbum/lambda_function.lambda_handler",
@@ -2727,7 +2737,7 @@
         "timeout": 10,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "ShareAlbumLambdaVersionLLHTOnVgoQzbeQJ5yWW2sO0CF1ANhJA5lb5QjDdOYo"
+        "versionLogicalId": "ShareAlbumLambdaVersionhnqXWUSZnZZz3bEBoOglRxs6SOhTvhfNZ4P3duTq1M"
       },
       "onS3BucketInsert": {
         "handler": "functions/OnS3BucketInsert/lambda_function.lambda_handler",
@@ -2743,6 +2753,12 @@
               "bucket": "user-files-bucket-with-unique-name",
               "event": "s3:ObjectCreated:Put"
             }
+          },
+          {
+            "s3": {
+              "bucket": "user-files-bucket-with-unique-name",
+              "event": "s3:ObjectCreated:Post"
+            }
           }
         ],
         "name": "cloud-computing-project-dev-onS3BucketInsert",
@@ -2750,7 +2766,7 @@
         "timeout": 10,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "OnS3BucketInsertLambdaVersion43WYSfv4pnqcUxvzymEzQkQWTl5wuO2kSlWv1OGPhk"
+        "versionLogicalId": "OnS3BucketInsertLambdaVersionRN2Ssec7XerA6SLg29AXFrd9a1Fda31AwY6e50gQA"
       }
     },
     "resources": {
@@ -2886,7 +2902,7 @@
           "!**/**"
         ],
         "artifactsS3KeyDirname": "serverless/cloud-computing-project/dev/code-artifacts",
-        "artifactDirectoryName": "serverless/cloud-computing-project/dev/1687639149609-2023-06-24T20:39:09.609Z"
+        "artifactDirectoryName": "serverless/cloud-computing-project/dev/1687652412555-2023-06-25T00:20:12.555Z"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
@@ -2900,7 +2916,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/cloud-computing-project/dev/1687639149609-2023-06-24T20:39:09.609Z",
+    "artifactDirectoryName": "serverless/cloud-computing-project/dev/1687652412555-2023-06-25T00:20:12.555Z",
     "artifact": ""
   }
 }

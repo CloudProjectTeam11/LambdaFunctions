@@ -25,7 +25,7 @@ def create_album(name, user):
         "album_id":str(album_id),
         "album_name":name,
         "album_owner":user,
-        "sharedWith":{}
+        "shared_with":{"SS": []}
     }
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(albums_table)
