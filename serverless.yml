@@ -144,7 +144,21 @@ functions:
           authorizer:
             name: defaultAuthorizer
             identitySource: method.request.header.authorizationToken
-            type: token            
+            type: token
+  getSharedAlbums:
+    handler: functions/GetSharedAlbums/lambda_function.lambda_handler
+    package:
+      patterns:
+        - 'functions/GetSharedAlbums/**'
+    events:
+      - http:
+          path: resources/metadata/shared
+          method: get
+          cors: true
+          authorizer:
+            name: defaultAuthorizer
+            identitySource: method.request.header.authorizationToken
+            type: token                   
   deleteFile:
     handler: functions/DeleteFile/lambda_function.lambda_handler
     package:

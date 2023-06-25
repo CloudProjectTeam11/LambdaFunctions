@@ -25,7 +25,7 @@ def create_album(name, user):
         "album_id":str(album_id),
         "album_name":name,
         "album_owner":user,
-        "shared_with":{"SS": []}
+        "shared_with":set([''])
     }
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(albums_table)
@@ -64,6 +64,7 @@ def lambda_handler(event, context):
             'body': json.dumps({'message': 'Duplicate album name'})
         }
     album = create_album(body["name"], user)
+    album["shared_with"] = []
     return{
         'statusCode': 200,
         'headers': {
