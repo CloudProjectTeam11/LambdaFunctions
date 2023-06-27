@@ -11,8 +11,11 @@ def lambda_handler(event, context):
     except:
         return {
             'statusCode' : 400,
-             'headers': {
+            'headers': {
             'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+            'Access-Control-Allow-Headers': 'Authorization, Content-Type',
+            'Access-Control-Allow-Credentials': 'true'
             },
             'body': json.dumps({'message':'Invalid request'})
         }
@@ -26,6 +29,12 @@ def lambda_handler(event, context):
     if not file_id:
         return {
             'statusCode': 400,
+            'headers': {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+            'Access-Control-Allow-Headers': 'Authorization, Content-Type',
+            'Access-Control-Allow-Credentials': 'true'
+        },
             'body': json.dumps({'message':'Missing file identificator'})
         }
         
@@ -35,6 +44,12 @@ def lambda_handler(event, context):
     if not response.get('Item'):
         return {
             'statusCode': 404,
+            'headers': {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+            'Access-Control-Allow-Headers': 'Authorization, Content-Type',
+            'Access-Control-Allow-Credentials': 'true'
+        },
             'body': json.dumps('File not found')
         }
     user = event["requestContext"]["authorizer"]["X-User-Id"]
@@ -47,6 +62,12 @@ def lambda_handler(event, context):
     if user != userTable["Item"]["user"]:
         return {
             'statusCode': 403,
+            'headers': {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+            'Access-Control-Allow-Headers': 'Authorization, Content-Type',
+            'Access-Control-Allow-Credentials': 'true'
+        },
             'body': json.dumps({'message':'Invalid user'})
         }
     update_expression = 'SET #desc = :desc, #tags = :tags'
@@ -61,5 +82,11 @@ def lambda_handler(event, context):
     
     return {
         'statusCode': 200,
+        'headers': {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+            'Access-Control-Allow-Headers': 'Authorization, Content-Type',
+            'Access-Control-Allow-Credentials': 'true'
+        },
         'body': json.dumps({'message':'File updated successfully'})
     }

@@ -103,6 +103,25 @@ functions:
             name: defaultAuthorizer
             identitySource: method.request.header.authorizationToken
             type: token
+  downloadFile:
+    handler: functions/DownloadFile/lambda_function.lambda_handler
+    package:
+      patterns:
+        - 'functions/DownloadFile/**'
+    events:
+      - http:
+          path: resources
+          method: get
+          cors: 
+            origin: '*'
+            headers:
+              - authorizationToken
+              - Access-Control-Allow-Origin
+            allowCredentials: true
+          authorizer:
+            name: defaultAuthorizer
+            identitySource: method.request.header.authorizationToken
+            type: token
   updateFileMetadata:
     handler: functions/UpdateFileMetadata/lambda_function.lambda_handler
     package:
@@ -112,7 +131,14 @@ functions:
       - http:
           path: resources/metadata
           method: put
-          cors: true
+          cors: 
+            origin: '*'
+            headers:
+              - authorizationToken
+              - Access-Control-Allow-Origin
+            allowCredentials: true
+            allowMethods:
+              - PUT
           authorizer:
             name: defaultAuthorizer
             identitySource: method.request.header.authorizationToken
@@ -126,7 +152,13 @@ functions:
       - http:
           path: resources/metadata
           method: get
-          cors: true
+          cors: 
+            origin: '*'
+            headers:
+              - authorizationToken
+              - content-type
+              - authorization
+            allowCredentials: true
           authorizer:
             name: defaultAuthorizer
             identitySource: method.request.header.authorizationToken
@@ -140,7 +172,11 @@ functions:
       - http:
           path: album
           method: get
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - authorizationToken
+            allowCredentials: true
           authorizer:
             name: defaultAuthorizer
             identitySource: method.request.header.authorizationToken
@@ -168,7 +204,11 @@ functions:
       - http:
           path: resources
           method: delete
-          cors: true
+          cors:
+            origin: '*'
+            headers:
+              - authorizationToken
+            allowCredentials: true
           authorizer:
             name: defaultAuthorizer
             identitySource: method.request.header.authorizationToken
@@ -182,7 +222,12 @@ functions:
       - http:
           path: album
           method: post
-          cors: true
+          cors: 
+            origin: '*'
+            headers:
+              - authorizationToken
+              - Access-Control-Allow-Origin
+            allowCredentials: true
           authorizer:
             name: defaultAuthorizer
             identitySource: method.request.header.authorizationToken
@@ -196,7 +241,12 @@ functions:
       - http:
           path: album/share
           method: post
-          cors: true
+          cors: 
+            origin: '*'
+            headers:
+              - authorizationToken
+              - Access-Control-Allow-Origin
+            allowCredentials: true
           authorizer:
             name: defaultAuthorizer
             identitySource: method.request.header.authorizationToken
@@ -210,7 +260,13 @@ functions:
       - http:
           path: album/revoke/access
           method: put
-          cors: true
+          cors: 
+            origin: '*'
+            headers:
+              - authorizationToken
+              - Access-Control-Allow-Origin
+            allowCredentials: true
+          
           authorizer:
             name: defaultAuthorizer
             identitySource: method.request.header.authorizationToken

@@ -35,17 +35,26 @@ def lambda_handler(event, context):
     except:
         return {
             'statusCode' : 400,
+            'headers': {
+			'Access-Control-Allow-Origin': '*',
+		    },
             'body': json.dumps({'message':'Invalid request'})
         }
         
     if 'email' not in body:
         return {
             'statusCode' : 400,
+            'headers': {
+			'Access-Control-Allow-Origin': '*',
+		    },
             'body': json.dumps({'message':'Parameter (email) is required'})
         }
     if 'password' not in body:
         return {
             'statusCode' : 400,
+            'headers': {
+			'Access-Control-Allow-Origin': '*',
+		    },
             'body': json.dumps({'message':'Parameter (password) is required'})
         }
     
@@ -62,9 +71,15 @@ def lambda_handler(event, context):
         token = jwt.encode(payload, secret_key, algorithm='HS256')    
         return {
             'statusCode': 200,
+            'headers': {
+			'Access-Control-Allow-Origin': '*',
+		    },
             'body': json.dumps({'user':userID, 'token':token})
         }
     return {
         'statusCode': 400,
+        'headers': {
+			'Access-Control-Allow-Origin': '*',
+		},
         'body': json.dumps({'message':'Email or password is not correct'})
     }

@@ -24,7 +24,9 @@ async function getS3Object(objectKey) {
 exports.handler = async (event, context, callback) => {
     let bodyBuffer = Buffer.from(event['body'], 'base64');
     let boundary = multipart.getBoundary(event.headers["content-type"]);
+    console.log("Udje u funkciju");
     let user = event.requestContext.authorizer["X-User-Id"];
+    console.log(user)
     let parts = multipart.Parse(bodyBuffer, boundary);
     let album = event.queryStringParameters["album"];
     let filename = parts[0].filename;
