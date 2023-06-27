@@ -11,7 +11,8 @@ def get_album(album):
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(albums_table)
     response = table.get_item(Key={'album_id': album})
-    return response['Items']
+    print(response)
+    return response.get("Item")
 
 def delete_album(album):
     dynamodb = boto3.resource('dynamodb')
@@ -60,7 +61,7 @@ def lambda_handler(event, context):
             },
             'body': json.dumps({'message': 'Parameter (album) is required'})
         }
-
+    print(body["album"])
     album = get_album(body["album"])
     if album is None:
         return {
