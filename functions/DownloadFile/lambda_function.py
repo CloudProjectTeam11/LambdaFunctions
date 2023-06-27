@@ -7,30 +7,36 @@ files_metadata_table = os.environ["USER_FILES_METADATA_TABLE"]
 s3_bucket_name = os.environ["USER_FILES_BUCKET"]
 
 def lambda_handler(event, context):
-    print("Entered the function")
-    user = event["requestContext"]["authorizer"]["X-User-Id"]
     file_id = event["queryStringParameters"]["file_id"]
 
-    print(file_id)
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(files_metadata_table)
-
-    response = table.get_item(
-        Key={
-            'file_id': file_id,
-            'user': user
-        }
-    )
+    response = table.get_item(Key={'file_id': file_id})
     file_metadata = response.get('Item')
-
-    print(file_metadata)
     # Check if file exists
     if not file_metadata:
         return {
             'statusCode': 404,
             'body': 'File not found'
         }
+    user = event["requestContext"]["authorizer"]["X-User-Id"]
+    userTable = table.get_item(
+    Key={'file_id': file_id},
+    ProjectionExpression='#u',
+    ExpressionAttributeNames={'#u': 'user'}
+    )
 
+    if user != userTable["Item"]["user"]:
+        return {
+            'statusCode': 403,
+            'headers': {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+            'Access-Control-Allow-Headers': 'Authorization, Content-Type',
+            'Access-Control-Allow-Credentials': 'true'
+        },
+            'body': json.dumps({'message':'Invalid user'})
+        }
     # Get the file's S3 key
     file_key = file_metadata['file_key']
 
