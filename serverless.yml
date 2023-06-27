@@ -52,6 +52,7 @@ provider:
             - s3:GetObject
             - s3:ListBucket
             - s3:PutBucketNotification
+            - s3:DeleteObject
           Resource:
             - "arn:aws:s3:::user-files-bucket-with-unique-name/*"
 
@@ -201,6 +202,20 @@ functions:
             name: defaultAuthorizer
             identitySource: method.request.header.authorizationToken
             type: token
+  deleteAlbum:
+    handler: functions/DeleteAlbum/lambda_function.lambda_handler
+    package:
+      patterns:
+        - 'functions/DeleteAlbum/**'
+    events:
+      - http:
+          path: album
+          method: delete
+          cors: true
+          authorizer:
+            name: defaultAuthorizer
+            identitySource: method.request.header.authorizationToken
+            type: token            
   revokeAlbumAccess:
     handler: functions/RevokeAlbumAccess/lambda_function.lambda_handler
     package:

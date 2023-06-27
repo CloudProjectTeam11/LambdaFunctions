@@ -22,7 +22,7 @@ def lambda_handler(event, context):
     file_id = body['file_id']
     description = body['description']
     tags = set(body['tags'])
-
+    album = body['album']
     if not file_id:
         return {
             'statusCode': 400,
@@ -49,9 +49,9 @@ def lambda_handler(event, context):
             'statusCode': 403,
             'body': json.dumps({'message':'Invalid user'})
         }
-    update_expression = 'SET #desc = :desc, #tags = :tags'
-    expression_attribute_names = {'#desc': 'description', '#tags': 'tags'}
-    expression_attribute_values = {':desc': description, ':tags': tags}
+    update_expression = 'SET #desc = :desc, #tags = :tags, #alb = :album'
+    expression_attribute_names = {'#desc': 'description', '#tags': 'tags', '#alb':'album'}
+    expression_attribute_values = {':desc': description, ':tags': tags, ':album':album}
     table.update_item(
         Key={'file_id': file_id},
         UpdateExpression=update_expression,
