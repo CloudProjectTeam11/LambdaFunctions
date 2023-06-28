@@ -131,12 +131,13 @@ functions:
     events:
       - http:
           path: resources/metadata
-          method: put
+          method: post
           cors: 
             origin: '*'
             headers:
               - authorizationToken
-              - Access-Control-Allow-Origin
+              - authorization
+              - access-control-allow-origin
             allowCredentials: true
             allowMethods:
               - PUT
@@ -203,12 +204,14 @@ functions:
         - 'functions/DeleteFile/**'
     events:
       - http:
-          path: resources
-          method: delete
+          path: resources/delete
+          method: post
           cors:
             origin: '*'
             headers:
               - authorizationToken
+              - authorization
+              - content-type
             allowCredentials: true
           authorizer:
             name: defaultAuthorizer
@@ -247,6 +250,71 @@ functions:
             headers:
               - authorizationToken
               - Access-Control-Allow-Origin
+              - authorization
+              - content-type
+            allowCredentials: true
+          authorizer:
+            name: defaultAuthorizer
+            identitySource: method.request.header.authorizationToken
+            type: token
+  getAlbumsSharedWithMe:
+    handler: functions/GetAlbumsSharedWithMe/lambda_function.lambda_handler
+    package:
+      patterns:
+        - 'functions/GetAlbumsSharedWithMe/**'
+    events:
+      - http:
+          path: album/share
+          method: get
+          cors: 
+            origin: '*'
+            headers:
+              - authorizationToken
+              - Access-Control-Allow-Origin
+              - authorization
+              - content-type
+            allowCredentials: true
+          authorizer:
+            name: defaultAuthorizer
+            identitySource: method.request.header.authorizationToken
+            type: token
+  getSharedFiles:
+    handler: functions/GetSharedFiles/lambda_function.lambda_handler
+    package:
+      patterns:
+        - 'functions/GetSharedFiles/**'
+    events:
+      - http:
+          path: resources/share
+          method: get
+          cors: 
+            origin: '*'
+            headers:
+              - authorizationToken
+              - Access-Control-Allow-Origin
+              - authorization
+              - content-type
+            allowCredentials: true
+          authorizer:
+            name: defaultAuthorizer
+            identitySource: method.request.header.authorizationToken
+            type: token
+  shareFile:
+    handler: functions/ShareFile/lambda_function.lambda_handler
+    package:
+      patterns:
+        - 'functions/ShareFile/**'
+    events:
+      - http:
+          path: resources/share
+          method: post
+          cors: 
+            origin: '*'
+            headers:
+              - authorizationToken
+              - Access-Control-Allow-Origin
+              - authorization
+              - content-type
             allowCredentials: true
           authorizer:
             name: defaultAuthorizer
@@ -261,7 +329,13 @@ functions:
       - http:
           path: album
           method: delete
-          cors: true
+          cors: 
+            origin: '*'
+            headers:
+              - authorizationToken
+              - Access-Control-Allow-Origin
+              - authorization
+              - content-type
           authorizer:
             name: defaultAuthorizer
             identitySource: method.request.header.authorizationToken
@@ -274,11 +348,13 @@ functions:
     events:
       - http:
           path: album/revoke/access
-          method: put
+          method: post
           cors: 
             origin: '*'
             headers:
+              - content-type
               - authorizationToken
+              - authorization
               - Access-Control-Allow-Origin
             allowCredentials: true
           

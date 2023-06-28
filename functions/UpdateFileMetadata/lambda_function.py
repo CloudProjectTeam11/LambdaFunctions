@@ -13,9 +13,6 @@ def lambda_handler(event, context):
             'statusCode' : 400,
             'headers': {
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-            'Access-Control-Allow-Headers': 'Authorization, Content-Type',
-            'Access-Control-Allow-Credentials': 'true'
             },
             'body': json.dumps({'message':'Invalid request'})
         }
@@ -31,9 +28,6 @@ def lambda_handler(event, context):
             'statusCode': 400,
             'headers': {
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-            'Access-Control-Allow-Headers': 'Authorization, Content-Type',
-            'Access-Control-Allow-Credentials': 'true'
         },
             'body': json.dumps({'message':'Missing file identificator'})
         }
@@ -46,9 +40,6 @@ def lambda_handler(event, context):
             'statusCode': 404,
             'headers': {
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-            'Access-Control-Allow-Headers': 'Authorization, Content-Type',
-            'Access-Control-Allow-Credentials': 'true'
         },
             'body': json.dumps('File not found')
         }
@@ -64,9 +55,6 @@ def lambda_handler(event, context):
             'statusCode': 403,
             'headers': {
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-            'Access-Control-Allow-Headers': 'Authorization, Content-Type',
-            'Access-Control-Allow-Credentials': 'true'
         },
             'body': json.dumps({'message':'Invalid user'})
         }
@@ -84,9 +72,6 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'headers': {
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-            'Access-Control-Allow-Headers': 'Authorization, Content-Type',
-            'Access-Control-Allow-Credentials': 'true'
         },
         'body': json.dumps({'message':'File updated successfully'})
     }

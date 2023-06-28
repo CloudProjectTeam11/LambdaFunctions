@@ -42,18 +42,8 @@ def delete_files(files):
 
 def lambda_handler(event, context):
     user = event["requestContext"]["authorizer"]["X-User-Id"]
-    try:
-        body = json.loads(event['body'])
-    except:
-        return {
-            'statusCode': 400,
-            'headers': {
-                'Access-Control-Allow-Origin': '*',
-            },
-            'body': json.dumps({'message': 'Invalid request'})
-        }
-
-    if "album" not in body:
+    album_id = event.get('queryStringParameters', {}).get('album')
+    if album_id == "" or album_id == None:
         return {
             'statusCode': 400,
             'headers': {
@@ -61,8 +51,7 @@ def lambda_handler(event, context):
             },
             'body': json.dumps({'message': 'Parameter (album) is required'})
         }
-    print(body["album"])
-    album = get_album(body["album"])
+    album = get_album(album_id)
     if album is None:
         return {
             'statusCode': 404,

@@ -31,7 +31,8 @@ def lambda_handler(event, context):
                     'file_key': {'S': filename},
                     'last_modified': {'S': current_time},
                     'user': {'S': user_id},
-                    'album': {'S': album}
+                    'album': {'S': album},
+                    "shared_with":{'L': []}
                 }
             )
     

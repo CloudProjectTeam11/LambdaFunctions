@@ -78,7 +78,8 @@
                 "s3:PutObject",
                 "s3:GetObject",
                 "s3:ListBucket",
-                "s3:PutBucketNotification"
+                "s3:PutBucketNotification",
+                "s3:DeleteObject"
               ],
               "Resource": "arn:aws:s3:::user-files-bucket-with-unique-name/*"
             }
@@ -231,6 +232,30 @@
               "LogGroupName": "/aws/lambda/cloud-computing-project-dev-shareAlbum"
             }
           },
+          "GetAlbumsSharedWithMeLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/cloud-computing-project-dev-getAlbumsSharedWithMe"
+            }
+          },
+          "GetSharedFilesLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/cloud-computing-project-dev-getSharedFiles"
+            }
+          },
+          "ShareFileLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/cloud-computing-project-dev-shareFile"
+            }
+          },
+          "DeleteAlbumLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/cloud-computing-project-dev-deleteAlbum"
+            }
+          },
           "RevokeAlbumAccessLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
@@ -334,7 +359,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z/defaultAuthorizer.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/defaultAuthorizer.zip"
               },
               "Handler": "functions/DefaultAuthorizer/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -373,7 +398,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z/registerUser.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/registerUser.zip"
               },
               "Handler": "functions/RegisterUser/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -412,7 +437,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z/loginUser.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/loginUser.zip"
               },
               "Handler": "functions/LoginUser/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -451,7 +476,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z/uploadFileToS3.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/uploadFileToS3.zip"
               },
               "Handler": "functions/UploadFileToS3Bucket/index.handler",
               "Runtime": "nodejs18.x",
@@ -490,7 +515,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z/downloadFile.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/downloadFile.zip"
               },
               "Handler": "functions/DownloadFile/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -529,7 +554,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z/updateFileMetadata.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/updateFileMetadata.zip"
               },
               "Handler": "functions/UpdateFileMetadata/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -568,7 +593,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z/getUserFilesMetadata.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/getUserFilesMetadata.zip"
               },
               "Handler": "functions/GetUserFilesMetadata/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -607,7 +632,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z/getAlbums.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/getAlbums.zip"
               },
               "Handler": "functions/GetAlbums/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -646,7 +671,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z/getSharedAlbums.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/getSharedAlbums.zip"
               },
               "Handler": "functions/GetSharedAlbums/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -685,7 +710,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z/deleteFile.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/deleteFile.zip"
               },
               "Handler": "functions/DeleteFile/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -724,7 +749,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z/createAlbum.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/createAlbum.zip"
               },
               "Handler": "functions/CreateAlbum/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -763,7 +788,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z/shareAlbum.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/shareAlbum.zip"
               },
               "Handler": "functions/ShareAlbum/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -795,6 +820,162 @@
               "ShareAlbumLogGroup"
             ]
           },
+          "GetAlbumsSharedWithMeLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/getAlbumsSharedWithMe.zip"
+              },
+              "Handler": "functions/GetAlbumsSharedWithMe/lambda_function.lambda_handler",
+              "Runtime": "python3.8",
+              "FunctionName": "cloud-computing-project-dev-getAlbumsSharedWithMe",
+              "MemorySize": 128,
+              "Timeout": 10,
+              "Environment": {
+                "Variables": {
+                  "USER_FILES_BUCKET": "user-files-bucket-with-unique-name",
+                  "USER_FILES_METADATA_TABLE": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_METADATA_TABLE\"]"
+                  },
+                  "USERS_TABLE": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USERS_TABLE\"]"
+                  },
+                  "ALBUMS_TABLE": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"ALBUMS_TABLE\"]"
+                  }
+                }
+              },
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "GetAlbumsSharedWithMeLogGroup"
+            ]
+          },
+          "GetSharedFilesLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/getSharedFiles.zip"
+              },
+              "Handler": "functions/GetSharedFiles/lambda_function.lambda_handler",
+              "Runtime": "python3.8",
+              "FunctionName": "cloud-computing-project-dev-getSharedFiles",
+              "MemorySize": 128,
+              "Timeout": 10,
+              "Environment": {
+                "Variables": {
+                  "USER_FILES_BUCKET": "user-files-bucket-with-unique-name",
+                  "USER_FILES_METADATA_TABLE": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_METADATA_TABLE\"]"
+                  },
+                  "USERS_TABLE": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USERS_TABLE\"]"
+                  },
+                  "ALBUMS_TABLE": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"ALBUMS_TABLE\"]"
+                  }
+                }
+              },
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "GetSharedFilesLogGroup"
+            ]
+          },
+          "ShareFileLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/shareFile.zip"
+              },
+              "Handler": "functions/ShareFile/lambda_function.lambda_handler",
+              "Runtime": "python3.8",
+              "FunctionName": "cloud-computing-project-dev-shareFile",
+              "MemorySize": 128,
+              "Timeout": 10,
+              "Environment": {
+                "Variables": {
+                  "USER_FILES_BUCKET": "user-files-bucket-with-unique-name",
+                  "USER_FILES_METADATA_TABLE": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_METADATA_TABLE\"]"
+                  },
+                  "USERS_TABLE": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USERS_TABLE\"]"
+                  },
+                  "ALBUMS_TABLE": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"ALBUMS_TABLE\"]"
+                  }
+                }
+              },
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "ShareFileLogGroup"
+            ]
+          },
+          "DeleteAlbumLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/deleteAlbum.zip"
+              },
+              "Handler": "functions/DeleteAlbum/lambda_function.lambda_handler",
+              "Runtime": "python3.8",
+              "FunctionName": "cloud-computing-project-dev-deleteAlbum",
+              "MemorySize": 128,
+              "Timeout": 10,
+              "Environment": {
+                "Variables": {
+                  "USER_FILES_BUCKET": "user-files-bucket-with-unique-name",
+                  "USER_FILES_METADATA_TABLE": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USER_FILES_METADATA_TABLE\"]"
+                  },
+                  "USERS_TABLE": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"USERS_TABLE\"]"
+                  },
+                  "ALBUMS_TABLE": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"ALBUMS_TABLE\"]"
+                  }
+                }
+              },
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "DeleteAlbumLogGroup"
+            ]
+          },
           "RevokeAlbumAccessLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
@@ -802,7 +983,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z/revokeAlbumAccess.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/revokeAlbumAccess.zip"
               },
               "Handler": "functions/RevokeAlbumAccess/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -841,7 +1022,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z/onS3BucketInsert.zip"
+                "S3Key": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z/onS3BucketInsert.zip"
               },
               "Handler": "functions/OnS3BucketInsert/lambda_function.lambda_handler",
               "Runtime": "python3.8",
@@ -873,34 +1054,34 @@
               "OnS3BucketInsertLogGroup"
             ]
           },
-          "RegisterUserLambdaVersionCv41ZtuMjhbhAP8n5Ew7GbcOiNli3gGNnnlZPAPyPuI": {
+          "RegisterUserLambdaVersionDzd7BPWNJkIyJ08m5K2CqbeQZE2I1tfsPI35aWBGf8": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RegisterUserLambdaFunction"
               },
-              "CodeSha256": "n+qJIzi6F0uORwJPkt5PBqAZJvw3ZWxI2y4z5tNzTi8="
+              "CodeSha256": "zrM88Jny5ggWdOUQ/1uFaTlT9chES7GxxdxAq6U4pa0="
             }
           },
-          "DownloadFileLambdaVersionyCS83NanZurnyD7w7c1owjZ1f3aXbrEE9oM0XgL0NMI": {
+          "DownloadFileLambdaVersion6jWROwTOJgJRohNPbimIGw2kv1GAweXRRgKYmeHORU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DownloadFileLambdaFunction"
               },
-              "CodeSha256": "QDD8R86oT1Wj05Nr6+U0h9gH62UfOIn98v6CDkL75q8="
+              "CodeSha256": "npGLAa3LFNgzI2+tcsquJfjXBNNCk61enRIZ24qJ5II="
             }
           },
-          "UpdateFileMetadataLambdaVersionggqpY6aL52WOJox99zzCueu3AC0Tglry3TSERCpE8": {
+          "UpdateFileMetadataLambdaVersionBZAB582Yp0KSp16GvKi24kmB8IaEQoFeAj6lGJgFjI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateFileMetadataLambdaFunction"
               },
-              "CodeSha256": "qZ/4DOyMu+GEDCylf35ooxwW3mBjFrFVPZwXE4nqV+s="
+              "CodeSha256": "r26shmJJmPcTEX9hjiUIdaGahgoY+aH9htDfMzAqQ44="
             }
           },
           "GetUserFilesMetadataLambdaVersionLp6NjolmMWrachim7crbuySugqRy37TbUzROdHEW8": {
@@ -923,34 +1104,14 @@
               "CodeSha256": "U7zTK6PEOBZh/XfF33Jb9CfvbORnz3D2N/TdpO8Hsk4="
             }
           },
-          "GetSharedAlbumsLambdaVersionA9sIQBJ9qNdyk475wudBGorWJ3HrTsuUFMSzLq9zlA": {
-            "Type": "AWS::Lambda::Version",
-            "DeletionPolicy": "Retain",
-            "Properties": {
-              "FunctionName": {
-                "Ref": "GetSharedAlbumsLambdaFunction"
-              },
-              "CodeSha256": "6JcKVnYkeeaEVknxfF6w5sZ9H9nlOanfnzVfyrVJ4D4="
-            }
-          },
-          "DeleteFileLambdaVersionVtOTvvTPWOnkdmZdzkxDfSWtf8GkEIN0XjBy7STA90": {
+          "DeleteFileLambdaVersionQX95HJkMXWZze8RF0cuGx8AyLrbVlC0AlyyHUBj0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DeleteFileLambdaFunction"
               },
-              "CodeSha256": "nU7/jdc1k5JuVwNdpqJNYmwUDpxGwdrFcb44iK7zRd0="
-            }
-          },
-          "CreateAlbumLambdaVersion8ptJzCyaXsLzW8sY84PBgflrlVndaqbsCOegyW49a5M": {
-            "Type": "AWS::Lambda::Version",
-            "DeletionPolicy": "Retain",
-            "Properties": {
-              "FunctionName": {
-                "Ref": "CreateAlbumLambdaFunction"
-              },
-              "CodeSha256": "8R6d6SxbSKYWxwRzuTBcPCqwujntVhS/VOqk250piwk="
+              "CodeSha256": "eXRSrTJFxqa7iNx2Fs6JWshGU13PuKSesXXwZoiARi4="
             }
           },
           "ShareAlbumLambdaVersionhnqXWUSZnZZz3bEBoOglRxs6SOhTvhfNZ4P3duTq1M": {
@@ -963,6 +1124,66 @@
               "CodeSha256": "1/RkIgi2f9J4B2PRYFE2VS017ukaBugkPRsF36TNJH0="
             }
           },
+          "CreateAlbumLambdaVersion8ptJzCyaXsLzW8sY84PBgflrlVndaqbsCOegyW49a5M": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "CreateAlbumLambdaFunction"
+              },
+              "CodeSha256": "8R6d6SxbSKYWxwRzuTBcPCqwujntVhS/VOqk250piwk="
+            }
+          },
+          "GetSharedAlbumsLambdaVersionA9sIQBJ9qNdyk475wudBGorWJ3HrTsuUFMSzLq9zlA": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "GetSharedAlbumsLambdaFunction"
+              },
+              "CodeSha256": "6JcKVnYkeeaEVknxfF6w5sZ9H9nlOanfnzVfyrVJ4D4="
+            }
+          },
+          "GetAlbumsSharedWithMeLambdaVersion4T1b7tz8dTDI8Cctp4QSFOTvNj1syvZwUUyHwmhw": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "GetAlbumsSharedWithMeLambdaFunction"
+              },
+              "CodeSha256": "8pFPmHD0xmuXtmy32m8K9NOvMftaaZCoEA+RW3HNcpw="
+            }
+          },
+          "GetSharedFilesLambdaVersionVcIppovWDs08sPywIS47hhsci3CWNSi3SksaTFtrIg": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "GetSharedFilesLambdaFunction"
+              },
+              "CodeSha256": "fWmmTSzEqkEzm5rCQ0Zmgj+b5U2fy7oS+qtv6wiEpJI="
+            }
+          },
+          "ShareFileLambdaVersionDIVIfEx5281JYd5iRaF6kPLmm4APIPsywXwcqnUxrI": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "ShareFileLambdaFunction"
+              },
+              "CodeSha256": "LlYWYFpx9NEaZcajrISCSG4Isxjz9vX9vPVtH2gFXfs="
+            }
+          },
+          "DeleteAlbumLambdaVersionN8NhuYLc4Uc4TCHOaNgczhEiZPYJUNdL19K8RhxXBY": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "DeleteAlbumLambdaFunction"
+              },
+              "CodeSha256": "Paq1rMvPKQJ9HRRwvd/YItcwZaQEbPYp516xA4qrFJA="
+            }
+          },
           "RevokeAlbumAccessLambdaVersionVXzqQZnT9QFxoTmwb22qEVllU85R7s7IQ6btJIhQ9Xw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
@@ -973,14 +1194,14 @@
               "CodeSha256": "x77PqHVLE4M1ijbIqy2Kb7gsrzkiLnRis9Vh+OgYg/Y="
             }
           },
-          "OnS3BucketInsertLambdaVersionRN2Ssec7XerA6SLg29AXFrd9a1Fda31AwY6e50gQA": {
+          "OnS3BucketInsertLambdaVersionsfMuFvae64aVH1szNzDVDVg4JBqWsXLLae2eAFlGVU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "OnS3BucketInsertLambdaFunction"
               },
-              "CodeSha256": "CAqYcTGo3mNC6j9zbHY1AXlF0J9cwxUoENF50U2VrjY="
+              "CodeSha256": "hnEzDgNokO5Tew+tRKNpCeG32hYG+cGoyBUAIeBVf5Q="
             }
           },
           "DefaultAuthorizerLambdaVersionfBbkaTOEIQV5j3assq9hLQaSIfwot9YPepCQIVCWhE": {
@@ -1163,6 +1384,30 @@
               }
             }
           },
+          "ApiGatewayResourceResourcesDelete": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Ref": "ApiGatewayResourceResources"
+              },
+              "PathPart": "delete",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayResourceResourcesShare": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Ref": "ApiGatewayResourceResources"
+              },
+              "PathPart": "share",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
           "ApiGatewayResourceAlbum": {
             "Type": "AWS::ApiGateway::Resource",
             "Properties": {
@@ -1334,7 +1579,7 @@
                     "ResponseParameters": {
                       "method.response.header.Access-Control-Allow-Origin": "'*'",
                       "method.response.header.Access-Control-Allow-Headers": "'authorizationToken,Access-Control-Allow-Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,DELETE,GET,POST'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,POST'",
                       "method.response.header.Access-Control-Allow-Credentials": "'true'"
                     },
                     "ResponseTemplates": {
@@ -1380,8 +1625,8 @@
                     "StatusCode": "200",
                     "ResponseParameters": {
                       "method.response.header.Access-Control-Allow-Origin": "'*'",
-                      "method.response.header.Access-Control-Allow-Headers": "'authorizationToken,content-type,authorization,Access-Control-Allow-Origin'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT'",
+                      "method.response.header.Access-Control-Allow-Headers": "'authorizationToken,content-type,authorization,access-control-allow-origin'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,POST'",
                       "method.response.header.Access-Control-Allow-Credentials": "'true'"
                     },
                     "ResponseTemplates": {
@@ -1427,8 +1672,8 @@
                     "StatusCode": "200",
                     "ResponseParameters": {
                       "method.response.header.Access-Control-Allow-Origin": "'*'",
-                      "method.response.header.Access-Control-Allow-Headers": "'authorizationToken,Access-Control-Allow-Origin'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST,GET'",
+                      "method.response.header.Access-Control-Allow-Headers": "'authorizationToken,Access-Control-Allow-Origin,authorization,content-type'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,DELETE,POST,GET'",
                       "method.response.header.Access-Control-Allow-Credentials": "'true'"
                     },
                     "ResponseTemplates": {
@@ -1490,6 +1735,53 @@
               }
             }
           },
+          "ApiGatewayMethodResourcesDeleteOptions": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "AuthorizationType": "NONE",
+              "HttpMethod": "OPTIONS",
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true,
+                    "method.response.header.Access-Control-Allow-Headers": true,
+                    "method.response.header.Access-Control-Allow-Methods": true,
+                    "method.response.header.Access-Control-Allow-Credentials": true
+                  },
+                  "ResponseModels": {}
+                }
+              ],
+              "RequestParameters": {},
+              "Integration": {
+                "Type": "MOCK",
+                "RequestTemplates": {
+                  "application/json": "{statusCode:200}"
+                },
+                "ContentHandling": "CONVERT_TO_TEXT",
+                "IntegrationResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'",
+                      "method.response.header.Access-Control-Allow-Headers": "'authorizationToken,authorization,content-type'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
+                      "method.response.header.Access-Control-Allow-Credentials": "'true'"
+                    },
+                    "ResponseTemplates": {
+                      "application/json": ""
+                    }
+                  }
+                ]
+              },
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceResourcesDelete"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
           "ApiGatewayMethodAlbumShareOptions": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
@@ -1519,8 +1811,8 @@
                     "StatusCode": "200",
                     "ResponseParameters": {
                       "method.response.header.Access-Control-Allow-Origin": "'*'",
-                      "method.response.header.Access-Control-Allow-Headers": "'authorizationToken,Access-Control-Allow-Origin'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
+                      "method.response.header.Access-Control-Allow-Headers": "'authorizationToken,Access-Control-Allow-Origin,authorization,content-type'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,POST'",
                       "method.response.header.Access-Control-Allow-Credentials": "'true'"
                     },
                     "ResponseTemplates": {
@@ -1531,6 +1823,53 @@
               },
               "ResourceId": {
                 "Ref": "ApiGatewayResourceAlbumShare"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayMethodResourcesShareOptions": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "AuthorizationType": "NONE",
+              "HttpMethod": "OPTIONS",
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true,
+                    "method.response.header.Access-Control-Allow-Headers": true,
+                    "method.response.header.Access-Control-Allow-Methods": true,
+                    "method.response.header.Access-Control-Allow-Credentials": true
+                  },
+                  "ResponseModels": {}
+                }
+              ],
+              "RequestParameters": {},
+              "Integration": {
+                "Type": "MOCK",
+                "RequestTemplates": {
+                  "application/json": "{statusCode:200}"
+                },
+                "ContentHandling": "CONVERT_TO_TEXT",
+                "IntegrationResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'",
+                      "method.response.header.Access-Control-Allow-Headers": "'authorizationToken,Access-Control-Allow-Origin,authorization,content-type'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST,GET'",
+                      "method.response.header.Access-Control-Allow-Credentials": "'true'"
+                    },
+                    "ResponseTemplates": {
+                      "application/json": ""
+                    }
+                  }
+                ]
+              },
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceResourcesShare"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
@@ -1566,8 +1905,8 @@
                     "StatusCode": "200",
                     "ResponseParameters": {
                       "method.response.header.Access-Control-Allow-Origin": "'*'",
-                      "method.response.header.Access-Control-Allow-Headers": "'authorizationToken,Access-Control-Allow-Origin'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,PUT'",
+                      "method.response.header.Access-Control-Allow-Headers": "'content-type,authorizationToken,authorization,Access-Control-Allow-Origin'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'",
                       "method.response.header.Access-Control-Allow-Credentials": "'true'"
                     },
                     "ResponseTemplates": {
@@ -1774,10 +2113,10 @@
               "DefaultAuthorizerApiGatewayAuthorizer"
             ]
           },
-          "ApiGatewayMethodResourcesMetadataPut": {
+          "ApiGatewayMethodResourcesMetadataPost": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
-              "HttpMethod": "PUT",
+              "HttpMethod": "POST",
               "RequestParameters": {},
               "ResourceId": {
                 "Ref": "ApiGatewayResourceResourcesMetadata"
@@ -1970,13 +2309,13 @@
               "DefaultAuthorizerApiGatewayAuthorizer"
             ]
           },
-          "ApiGatewayMethodResourcesDelete": {
+          "ApiGatewayMethodResourcesDeletePost": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
-              "HttpMethod": "DELETE",
+              "HttpMethod": "POST",
               "RequestParameters": {},
               "ResourceId": {
-                "Ref": "ApiGatewayResourceResources"
+                "Ref": "ApiGatewayResourceResourcesDelete"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
@@ -2117,10 +2456,206 @@
               "DefaultAuthorizerApiGatewayAuthorizer"
             ]
           },
-          "ApiGatewayMethodAlbumRevokeAccessPut": {
+          "ApiGatewayMethodAlbumShareGet": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
-              "HttpMethod": "PUT",
+              "HttpMethod": "GET",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceAlbumShare"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "CUSTOM",
+              "AuthorizerId": {
+                "Ref": "DefaultAuthorizerApiGatewayAuthorizer"
+              },
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "GetAlbumsSharedWithMeLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "DefaultAuthorizerApiGatewayAuthorizer"
+            ]
+          },
+          "ApiGatewayMethodResourcesShareGet": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "GET",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceResourcesShare"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "CUSTOM",
+              "AuthorizerId": {
+                "Ref": "DefaultAuthorizerApiGatewayAuthorizer"
+              },
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "GetSharedFilesLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "DefaultAuthorizerApiGatewayAuthorizer"
+            ]
+          },
+          "ApiGatewayMethodResourcesSharePost": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "POST",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceResourcesShare"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "CUSTOM",
+              "AuthorizerId": {
+                "Ref": "DefaultAuthorizerApiGatewayAuthorizer"
+              },
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "ShareFileLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "DefaultAuthorizerApiGatewayAuthorizer"
+            ]
+          },
+          "ApiGatewayMethodAlbumDelete": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "DELETE",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceAlbum"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "CUSTOM",
+              "AuthorizerId": {
+                "Ref": "DefaultAuthorizerApiGatewayAuthorizer"
+              },
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "DeleteAlbumLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "DefaultAuthorizerApiGatewayAuthorizer"
+            ]
+          },
+          "ApiGatewayMethodAlbumRevokeAccessPost": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "POST",
               "RequestParameters": {},
               "ResourceId": {
                 "Ref": "ApiGatewayResourceAlbumRevokeAccess"
@@ -2201,7 +2736,7 @@
               "Type": "TOKEN"
             }
           },
-          "ApiGatewayDeployment1687879466994": {
+          "ApiGatewayDeployment1687938216497": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -2216,20 +2751,26 @@
               "ApiGatewayMethodResourcesMetadataOptions",
               "ApiGatewayMethodAlbumOptions",
               "ApiGatewayMethodResourcesMetadataSharedOptions",
+              "ApiGatewayMethodResourcesDeleteOptions",
               "ApiGatewayMethodAlbumShareOptions",
+              "ApiGatewayMethodResourcesShareOptions",
               "ApiGatewayMethodAlbumRevokeAccessOptions",
               "ApiGatewayMethodUserRegisterPost",
               "ApiGatewayMethodUserLoginPost",
               "ApiGatewayMethodResourcesPost",
               "ApiGatewayMethodResourcesGet",
-              "ApiGatewayMethodResourcesMetadataPut",
+              "ApiGatewayMethodResourcesMetadataPost",
               "ApiGatewayMethodResourcesMetadataGet",
               "ApiGatewayMethodAlbumGet",
               "ApiGatewayMethodResourcesMetadataSharedGet",
-              "ApiGatewayMethodResourcesDelete",
+              "ApiGatewayMethodResourcesDeletePost",
               "ApiGatewayMethodAlbumPost",
               "ApiGatewayMethodAlbumSharePost",
-              "ApiGatewayMethodAlbumRevokeAccessPut"
+              "ApiGatewayMethodAlbumShareGet",
+              "ApiGatewayMethodResourcesShareGet",
+              "ApiGatewayMethodResourcesSharePost",
+              "ApiGatewayMethodAlbumDelete",
+              "ApiGatewayMethodAlbumRevokeAccessPost"
             ]
           },
           "RegisterUserLambdaPermissionApiGateway": {
@@ -2676,6 +3217,154 @@
               }
             }
           },
+          "GetAlbumsSharedWithMeLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "GetAlbumsSharedWithMeLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "GetSharedFilesLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "GetSharedFilesLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "ShareFileLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "ShareFileLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "DeleteAlbumLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "DeleteAlbumLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
           "RevokeAlbumAccessLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
@@ -2834,7 +3523,7 @@
           "RegisterUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RegisterUserLambdaVersionCv41ZtuMjhbhAP8n5Ew7GbcOiNli3gGNnnlZPAPyPuI"
+              "Ref": "RegisterUserLambdaVersionDzd7BPWNJkIyJ08m5K2CqbeQZE2I1tfsPI35aWBGf8"
             },
             "Export": {
               "Name": "sls-cloud-computing-project-dev-RegisterUserLambdaFunctionQualifiedArn"
@@ -2843,7 +3532,7 @@
           "DownloadFileLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DownloadFileLambdaVersionyCS83NanZurnyD7w7c1owjZ1f3aXbrEE9oM0XgL0NMI"
+              "Ref": "DownloadFileLambdaVersion6jWROwTOJgJRohNPbimIGw2kv1GAweXRRgKYmeHORU"
             },
             "Export": {
               "Name": "sls-cloud-computing-project-dev-DownloadFileLambdaFunctionQualifiedArn"
@@ -2852,7 +3541,7 @@
           "UpdateFileMetadataLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateFileMetadataLambdaVersionggqpY6aL52WOJox99zzCueu3AC0Tglry3TSERCpE8"
+              "Ref": "UpdateFileMetadataLambdaVersionBZAB582Yp0KSp16GvKi24kmB8IaEQoFeAj6lGJgFjI"
             },
             "Export": {
               "Name": "sls-cloud-computing-project-dev-UpdateFileMetadataLambdaFunctionQualifiedArn"
@@ -2876,22 +3565,22 @@
               "Name": "sls-cloud-computing-project-dev-GetAlbumsLambdaFunctionQualifiedArn"
             }
           },
-          "GetSharedAlbumsLambdaFunctionQualifiedArn": {
-            "Description": "Current Lambda function version",
-            "Value": {
-              "Ref": "GetSharedAlbumsLambdaVersionA9sIQBJ9qNdyk475wudBGorWJ3HrTsuUFMSzLq9zlA"
-            },
-            "Export": {
-              "Name": "sls-cloud-computing-project-dev-GetSharedAlbumsLambdaFunctionQualifiedArn"
-            }
-          },
           "DeleteFileLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DeleteFileLambdaVersionVtOTvvTPWOnkdmZdzkxDfSWtf8GkEIN0XjBy7STA90"
+              "Ref": "DeleteFileLambdaVersionQX95HJkMXWZze8RF0cuGx8AyLrbVlC0AlyyHUBj0"
             },
             "Export": {
               "Name": "sls-cloud-computing-project-dev-DeleteFileLambdaFunctionQualifiedArn"
+            }
+          },
+          "ShareAlbumLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "ShareAlbumLambdaVersionhnqXWUSZnZZz3bEBoOglRxs6SOhTvhfNZ4P3duTq1M"
+            },
+            "Export": {
+              "Name": "sls-cloud-computing-project-dev-ShareAlbumLambdaFunctionQualifiedArn"
             }
           },
           "CreateAlbumLambdaFunctionQualifiedArn": {
@@ -2903,13 +3592,49 @@
               "Name": "sls-cloud-computing-project-dev-CreateAlbumLambdaFunctionQualifiedArn"
             }
           },
-          "ShareAlbumLambdaFunctionQualifiedArn": {
+          "GetSharedAlbumsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ShareAlbumLambdaVersionhnqXWUSZnZZz3bEBoOglRxs6SOhTvhfNZ4P3duTq1M"
+              "Ref": "GetSharedAlbumsLambdaVersionA9sIQBJ9qNdyk475wudBGorWJ3HrTsuUFMSzLq9zlA"
             },
             "Export": {
-              "Name": "sls-cloud-computing-project-dev-ShareAlbumLambdaFunctionQualifiedArn"
+              "Name": "sls-cloud-computing-project-dev-GetSharedAlbumsLambdaFunctionQualifiedArn"
+            }
+          },
+          "GetAlbumsSharedWithMeLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "GetAlbumsSharedWithMeLambdaVersion4T1b7tz8dTDI8Cctp4QSFOTvNj1syvZwUUyHwmhw"
+            },
+            "Export": {
+              "Name": "sls-cloud-computing-project-dev-GetAlbumsSharedWithMeLambdaFunctionQualifiedArn"
+            }
+          },
+          "GetSharedFilesLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "GetSharedFilesLambdaVersionVcIppovWDs08sPywIS47hhsci3CWNSi3SksaTFtrIg"
+            },
+            "Export": {
+              "Name": "sls-cloud-computing-project-dev-GetSharedFilesLambdaFunctionQualifiedArn"
+            }
+          },
+          "ShareFileLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "ShareFileLambdaVersionDIVIfEx5281JYd5iRaF6kPLmm4APIPsywXwcqnUxrI"
+            },
+            "Export": {
+              "Name": "sls-cloud-computing-project-dev-ShareFileLambdaFunctionQualifiedArn"
+            }
+          },
+          "DeleteAlbumLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "DeleteAlbumLambdaVersionN8NhuYLc4Uc4TCHOaNgczhEiZPYJUNdL19K8RhxXBY"
+            },
+            "Export": {
+              "Name": "sls-cloud-computing-project-dev-DeleteAlbumLambdaFunctionQualifiedArn"
             }
           },
           "RevokeAlbumAccessLambdaFunctionQualifiedArn": {
@@ -2924,7 +3649,7 @@
           "OnS3BucketInsertLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "OnS3BucketInsertLambdaVersionRN2Ssec7XerA6SLg29AXFrd9a1Fda31AwY6e50gQA"
+              "Ref": "OnS3BucketInsertLambdaVersionsfMuFvae64aVH1szNzDVDVg4JBqWsXLLae2eAFlGVU"
             },
             "Export": {
               "Name": "sls-cloud-computing-project-dev-OnS3BucketInsertLambdaFunctionQualifiedArn"
@@ -3126,7 +3851,7 @@
         "timeout": 10,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "RegisterUserLambdaVersionCv41ZtuMjhbhAP8n5Ew7GbcOiNli3gGNnnlZPAPyPuI"
+        "versionLogicalId": "RegisterUserLambdaVersionDzd7BPWNJkIyJ08m5K2CqbeQZE2I1tfsPI35aWBGf8"
       },
       "loginUser": {
         "handler": "functions/LoginUser/lambda_function.lambda_handler",
@@ -3266,7 +3991,7 @@
         "timeout": 10,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "DownloadFileLambdaVersionyCS83NanZurnyD7w7c1owjZ1f3aXbrEE9oM0XgL0NMI"
+        "versionLogicalId": "DownloadFileLambdaVersion6jWROwTOJgJRohNPbimIGw2kv1GAweXRRgKYmeHORU"
       },
       "updateFileMetadata": {
         "handler": "functions/UpdateFileMetadata/lambda_function.lambda_handler",
@@ -3280,16 +4005,17 @@
           {
             "http": {
               "path": "resources/metadata",
-              "method": "put",
+              "method": "post",
               "cors": {
                 "origin": "*",
                 "methods": [
                   "OPTIONS",
-                  "PUT"
+                  "POST"
                 ],
                 "headers": [
                   "authorizationToken",
-                  "Access-Control-Allow-Origin"
+                  "authorization",
+                  "access-control-allow-origin"
                 ],
                 "allowCredentials": true,
                 "allowMethods": [
@@ -3316,7 +4042,7 @@
         "timeout": 10,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "UpdateFileMetadataLambdaVersionggqpY6aL52WOJox99zzCueu3AC0Tglry3TSERCpE8"
+        "versionLogicalId": "UpdateFileMetadataLambdaVersionBZAB582Yp0KSp16GvKi24kmB8IaEQoFeAj6lGJgFjI"
       },
       "getUserFilesMetadata": {
         "handler": "functions/GetUserFilesMetadata/lambda_function.lambda_handler",
@@ -3475,16 +4201,18 @@
         "events": [
           {
             "http": {
-              "path": "resources",
-              "method": "delete",
+              "path": "resources/delete",
+              "method": "post",
               "cors": {
                 "origin": "*",
                 "methods": [
                   "OPTIONS",
-                  "DELETE"
+                  "POST"
                 ],
                 "headers": [
-                  "authorizationToken"
+                  "authorizationToken",
+                  "authorization",
+                  "content-type"
                 ],
                 "allowCredentials": true
               },
@@ -3508,7 +4236,7 @@
         "timeout": 10,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "DeleteFileLambdaVersionVtOTvvTPWOnkdmZdzkxDfSWtf8GkEIN0XjBy7STA90"
+        "versionLogicalId": "DeleteFileLambdaVersionQX95HJkMXWZze8RF0cuGx8AyLrbVlC0AlyyHUBj0"
       },
       "createAlbum": {
         "handler": "functions/CreateAlbum/lambda_function.lambda_handler",
@@ -3578,7 +4306,9 @@
                 ],
                 "headers": [
                   "authorizationToken",
-                  "Access-Control-Allow-Origin"
+                  "Access-Control-Allow-Origin",
+                  "authorization",
+                  "content-type"
                 ],
                 "allowCredentials": true
               },
@@ -3604,6 +4334,202 @@
         "vpc": {},
         "versionLogicalId": "ShareAlbumLambdaVersionhnqXWUSZnZZz3bEBoOglRxs6SOhTvhfNZ4P3duTq1M"
       },
+      "getAlbumsSharedWithMe": {
+        "handler": "functions/GetAlbumsSharedWithMe/lambda_function.lambda_handler",
+        "package": {
+          "patterns": [
+            "functions/GetAlbumsSharedWithMe/**"
+          ],
+          "artifact": "D:\\Programiranje\\Treca godina\\Drugi semestar\\INŽENJERSTVO U OBLAKU\\Projekat\\Lambda functions\\LambdaFunctions\\.serverless\\getAlbumsSharedWithMe.zip"
+        },
+        "events": [
+          {
+            "http": {
+              "path": "album/share",
+              "method": "get",
+              "cors": {
+                "origin": "*",
+                "methods": [
+                  "OPTIONS",
+                  "GET"
+                ],
+                "headers": [
+                  "authorizationToken",
+                  "Access-Control-Allow-Origin",
+                  "authorization",
+                  "content-type"
+                ],
+                "allowCredentials": true
+              },
+              "authorizer": {
+                "type": "token",
+                "name": "defaultAuthorizer",
+                "arn": {
+                  "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"DefaultAuthorizerLambdaPermissionApiGateway\"][\"Properties\"][\"FunctionName\"]"
+                },
+                "managedExternally": false,
+                "resultTtlInSeconds": 300,
+                "identitySource": "method.request.header.authorizationToken",
+                "claims": []
+              },
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "cloud-computing-project-dev-getAlbumsSharedWithMe",
+        "memory": 128,
+        "timeout": 10,
+        "runtime": "python3.8",
+        "vpc": {},
+        "versionLogicalId": "GetAlbumsSharedWithMeLambdaVersion4T1b7tz8dTDI8Cctp4QSFOTvNj1syvZwUUyHwmhw"
+      },
+      "getSharedFiles": {
+        "handler": "functions/GetSharedFiles/lambda_function.lambda_handler",
+        "package": {
+          "patterns": [
+            "functions/GetSharedFiles/**"
+          ],
+          "artifact": "D:\\Programiranje\\Treca godina\\Drugi semestar\\INŽENJERSTVO U OBLAKU\\Projekat\\Lambda functions\\LambdaFunctions\\.serverless\\getSharedFiles.zip"
+        },
+        "events": [
+          {
+            "http": {
+              "path": "resources/share",
+              "method": "get",
+              "cors": {
+                "origin": "*",
+                "methods": [
+                  "OPTIONS",
+                  "GET"
+                ],
+                "headers": [
+                  "authorizationToken",
+                  "Access-Control-Allow-Origin",
+                  "authorization",
+                  "content-type"
+                ],
+                "allowCredentials": true
+              },
+              "authorizer": {
+                "type": "token",
+                "name": "defaultAuthorizer",
+                "arn": {
+                  "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"DefaultAuthorizerLambdaPermissionApiGateway\"][\"Properties\"][\"FunctionName\"]"
+                },
+                "managedExternally": false,
+                "resultTtlInSeconds": 300,
+                "identitySource": "method.request.header.authorizationToken",
+                "claims": []
+              },
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "cloud-computing-project-dev-getSharedFiles",
+        "memory": 128,
+        "timeout": 10,
+        "runtime": "python3.8",
+        "vpc": {},
+        "versionLogicalId": "GetSharedFilesLambdaVersionVcIppovWDs08sPywIS47hhsci3CWNSi3SksaTFtrIg"
+      },
+      "shareFile": {
+        "handler": "functions/ShareFile/lambda_function.lambda_handler",
+        "package": {
+          "patterns": [
+            "functions/ShareFile/**"
+          ],
+          "artifact": "D:\\Programiranje\\Treca godina\\Drugi semestar\\INŽENJERSTVO U OBLAKU\\Projekat\\Lambda functions\\LambdaFunctions\\.serverless\\shareFile.zip"
+        },
+        "events": [
+          {
+            "http": {
+              "path": "resources/share",
+              "method": "post",
+              "cors": {
+                "origin": "*",
+                "methods": [
+                  "OPTIONS",
+                  "POST"
+                ],
+                "headers": [
+                  "authorizationToken",
+                  "Access-Control-Allow-Origin",
+                  "authorization",
+                  "content-type"
+                ],
+                "allowCredentials": true
+              },
+              "authorizer": {
+                "type": "token",
+                "name": "defaultAuthorizer",
+                "arn": {
+                  "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"DefaultAuthorizerLambdaPermissionApiGateway\"][\"Properties\"][\"FunctionName\"]"
+                },
+                "managedExternally": false,
+                "resultTtlInSeconds": 300,
+                "identitySource": "method.request.header.authorizationToken",
+                "claims": []
+              },
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "cloud-computing-project-dev-shareFile",
+        "memory": 128,
+        "timeout": 10,
+        "runtime": "python3.8",
+        "vpc": {},
+        "versionLogicalId": "ShareFileLambdaVersionDIVIfEx5281JYd5iRaF6kPLmm4APIPsywXwcqnUxrI"
+      },
+      "deleteAlbum": {
+        "handler": "functions/DeleteAlbum/lambda_function.lambda_handler",
+        "package": {
+          "patterns": [
+            "functions/DeleteAlbum/**"
+          ],
+          "artifact": "D:\\Programiranje\\Treca godina\\Drugi semestar\\INŽENJERSTVO U OBLAKU\\Projekat\\Lambda functions\\LambdaFunctions\\.serverless\\deleteAlbum.zip"
+        },
+        "events": [
+          {
+            "http": {
+              "path": "album",
+              "method": "delete",
+              "cors": {
+                "origin": "*",
+                "methods": [
+                  "OPTIONS",
+                  "DELETE"
+                ],
+                "headers": [
+                  "authorizationToken",
+                  "Access-Control-Allow-Origin",
+                  "authorization",
+                  "content-type"
+                ],
+                "allowCredentials": false
+              },
+              "authorizer": {
+                "type": "token",
+                "name": "defaultAuthorizer",
+                "arn": {
+                  "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"DefaultAuthorizerLambdaPermissionApiGateway\"][\"Properties\"][\"FunctionName\"]"
+                },
+                "managedExternally": false,
+                "resultTtlInSeconds": 300,
+                "identitySource": "method.request.header.authorizationToken",
+                "claims": []
+              },
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "cloud-computing-project-dev-deleteAlbum",
+        "memory": 128,
+        "timeout": 10,
+        "runtime": "python3.8",
+        "vpc": {},
+        "versionLogicalId": "DeleteAlbumLambdaVersionN8NhuYLc4Uc4TCHOaNgczhEiZPYJUNdL19K8RhxXBY"
+      },
       "revokeAlbumAccess": {
         "handler": "functions/RevokeAlbumAccess/lambda_function.lambda_handler",
         "package": {
@@ -3616,15 +4542,17 @@
           {
             "http": {
               "path": "album/revoke/access",
-              "method": "put",
+              "method": "post",
               "cors": {
                 "origin": "*",
                 "methods": [
                   "OPTIONS",
-                  "PUT"
+                  "POST"
                 ],
                 "headers": [
+                  "content-type",
                   "authorizationToken",
+                  "authorization",
                   "Access-Control-Allow-Origin"
                 ],
                 "allowCredentials": true
@@ -3678,7 +4606,7 @@
         "timeout": 10,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "OnS3BucketInsertLambdaVersionRN2Ssec7XerA6SLg29AXFrd9a1Fda31AwY6e50gQA"
+        "versionLogicalId": "OnS3BucketInsertLambdaVersionsfMuFvae64aVH1szNzDVDVg4JBqWsXLLae2eAFlGVU"
       }
     },
     "resources": {
@@ -3814,7 +4742,7 @@
           "!**/**"
         ],
         "artifactsS3KeyDirname": "serverless/cloud-computing-project/dev/code-artifacts",
-        "artifactDirectoryName": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z"
+        "artifactDirectoryName": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
@@ -3828,7 +4756,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/cloud-computing-project/dev/1687879488969-2023-06-27T15:24:48.969Z",
+    "artifactDirectoryName": "serverless/cloud-computing-project/dev/1687938234688-2023-06-28T07:43:54.688Z",
     "artifact": ""
   }
 }

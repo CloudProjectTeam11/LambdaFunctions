@@ -3,9 +3,11 @@ import boto3
 import hashlib
 import re
 import os
+import uuid
 from boto3.dynamodb.conditions import Key
 
 users_table = os.environ["USERS_TABLE"]
+albums_table = os.environ["ALBUMS_TABLE"]
 
 def hash_password(password: str):
 	return hashlib.sha256(password.encode('utf-8')).hexdigest()
@@ -153,7 +155,19 @@ def lambda_handler(event, context):
 		'userID': body["username"]
 		
 	}
+	album_id = uuid.uuid1()
+	album = {
+        "album_id":str(album_id),
+        "album_name":"Default Album",
+        "album_owner":user['username'],
+        "shared_with":set([''])
+    }
+	dynamodb = boto3.resource('dynamodb')
+	table = dynamodb.Table(albums_table)
+	table.put_item(Item=album)
+
 	put_user(user)
+	
 	return {
 		'statusCode': 200,
 		'headers': {
