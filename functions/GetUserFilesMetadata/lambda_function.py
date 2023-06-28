@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 
 files_metadata_table = os.environ["USER_FILES_METADATA_TABLE"]
-albums_table = os.environ["ALBUMS_TABLE"]
+albums_table_name = os.environ["ALBUMS_TABLE"]
 
 
 def get_album_contents(album_id):
@@ -32,7 +32,7 @@ def lambda_handler(event, context):
     print("ALBUM:", album)
     dynamodb = boto3.resource('dynamodb')
     files_table = dynamodb.Table(files_metadata_table)
-    albums_table = dynamodb.Table(albums_table)
+    albums_table = dynamodb.Table(albums_table_name)
 
     # Check if the user is the owner of the album or has access to it
     if album:
@@ -79,9 +79,14 @@ def lambda_handler(event, context):
                 file["tags"] = list(file["tags"])
             except:
                 print("no tags")
+            try:
+                file["shared_with"] = list(file["shared_with"])
+            except:
+                print("no shared with")
+        print(album_contents)
 
     # Sort the album contents by last_modified in descending order
-    album_contents = sorted(album_contents, key=lambda x: datetime.fromisoformat(x['last_modified']), reverse=True)
+    album_contents = sorted(album_contents, key=lambda x: datetime.strptime(x['last_modified'][:-5], '%Y-%m-%dT%H:%M:%S'), reverse=True)
 
     return {
         'statusCode': 200,

@@ -10,10 +10,18 @@ def lambda_handler(event, context):
     user = event["requestContext"]["authorizer"]["X-User-Id"]
 
     # Retrieve file_id and share_with_user from the request body
-    body = json.loads(event['body'])
-    file_id = body.get('file_id')
-    share_with_user = body.get('username')
-
+    try:
+        body = json.loads(event['body'])
+        file_id = body.get('file_id')
+        share_with_users = body.get('users')
+    except:
+        return {
+            'statusCode': 404,
+            'headers': {
+                'Access-Control-Allow-Origin': '*',
+            },
+            'body': json.dumps("Invalid request")
+        }
     dynamodb = boto3.resource('dynamodb')
 
     # Retrieve file metadata from the metadata table
@@ -42,48 +50,40 @@ def lambda_handler(event, context):
             'body': json.dumps("Access forbidden")
         }
 
-    # Check if the file is already shared with the user
-    if share_with_user in file_metadata['shared_with']:
-        return {
-            'statusCode': 400,
-            'headers': {
-                'Access-Control-Allow-Origin': '*',
-            },
-            'body': json.dumps("File already shared with the user")
-        }
-
     # Find the album in the albums table
     albums_table = dynamodb.Table(albums_table1)
     response = albums_table.get_item(Key={'album_id': file_metadata['album']})
     album = response.get('Item')
 
-    # Check if the album is already shared with the user
-    if share_with_user in album['shared_with']:
+    shared_with = album.get('shared_with', [])
+    shared_users = False
+    # Check if any user in share_with_users is already in shared_with
+    for share_user in share_with_users:
+        if share_user in shared_with:
+            shared_users = True
+            share_with_users.remove(share_user)
+
+
+    print(share_with_users)
+
+    file_metadata['shared_with'] = share_with_users
+
+    file_metadata['shared_with'] = [str(user) for user in file_metadata['shared_with']]
+    metadata_table.put_item(Item=file_metadata)
+
+    if(shared_users):
         return {
             'statusCode': 400,
             'headers': {
                 'Access-Control-Allow-Origin': '*',
             },
-            'body': json.dumps("Album already shared with the user")
+            'body': json.dumps("Some users have album access, file access change declined.")
         }
-
-    # Update the shared_with list in the file metadata
-    file_metadata['shared_with'].append(share_with_user)
-
-    # Convert shared_with to a list of strings
-    file_metadata['shared_with'] = [str(user) for user in file_metadata['shared_with']]
-
-    metadata_table.put_item(Item=file_metadata)
-
-    output = {
-        "album": album["album_id"],
-        "files": [file_metadata]
-    }
 
     return {
         'statusCode': 200,
         'headers': {
             'Access-Control-Allow-Origin': '*',
         },
-        'body': json.dumps(output)
+        'body': json.dumps("Access granted")
     }

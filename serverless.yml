@@ -31,6 +31,10 @@ provider:
       statements:
         - Effect: Allow
           Action:
+            - sqs:SendMessage
+          Resource: arn:aws:sqs:eu-central-1:665416417349:FileChangeQueue
+        - Effect: Allow
+          Action:
             - dynamodb:DescribeTable
             - dynamodb:Query
             - dynamodb:Scan
@@ -133,15 +137,7 @@ functions:
       - http:
           path: resources/metadata
           method: post
-          cors: 
-            origin: '*'
-            headers:
-              - authorizationToken
-              - authorization
-              - Access-Control-Allow-Origin
-            allowCredentials: true
-            allowMethods:
-              - PUT
+          cors: true
           authorizer:
             name: defaultAuthorizer
             identitySource: method.request.header.authorizationToken
@@ -159,9 +155,6 @@ functions:
             origin: '*'
             headers:
               - authorizationToken
-              - content-type
-              - authorization
-              - Access-Control-Allow-Origin
             allowCredentials: true
           authorizer:
             name: defaultAuthorizer
@@ -316,12 +309,6 @@ functions:
           method: post
           cors: 
             origin: '*'
-            headers:
-              - authorizationToken
-              - Access-Control-Allow-Origin
-              - authorization
-              - content-type
-            allowCredentials: true
           authorizer:
             name: defaultAuthorizer
             identitySource: method.request.header.authorizationToken
@@ -368,18 +355,6 @@ functions:
             name: defaultAuthorizer
             identitySource: method.request.header.authorizationToken
             type: token            
-  onS3BucketInsert:
-    handler: functions/OnS3BucketInsert/lambda_function.lambda_handler
-    package:
-      patterns:
-        - 'functions/OnS3BucketInsert/**'    
-    events:
-      - s3:
-          bucket: user-files-bucket-with-unique-name
-          event: s3:ObjectCreated:Put
-      - s3:
-          bucket: user-files-bucket-with-unique-name
-          event: s3:ObjectCreated:Post
 
 resources:
   Resources:
@@ -441,15 +416,3 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: user-files-bucket-with-unique-name
-    Ons3bucketinsertLambdaPermissionUserfilesbucketwithuniquenameS3:
-      Type: "AWS::Lambda::Permission"
-      Properties:
-        FunctionName:
-          "Fn::GetAtt":
-            - OnS3BucketInsertLambdaFunction
-            - Arn
-        Principal: "s3.amazonaws.com"
-        Action: "lambda:InvokeFunction"
-        SourceAccount:
-          Ref: AWS::AccountId
-        SourceArn: "arn:aws:s3:::user-files-bucket-with-unique-name"

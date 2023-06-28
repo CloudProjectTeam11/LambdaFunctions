@@ -19,32 +19,31 @@ def lambda_handler(event, context):
     album = metadata["album"]
     current_time = datetime.datetime.now().isoformat()
     
-    dynamodb = boto3.client('dynamodb')
+    dynamodb = boto3.resource('dynamodb')
     
     if is_changed == "false":
-        dynamodb.put_item(
-                TableName=table_name,
-                Item = {
-                    'file_id': {'S': file_id},
-                    'created_at': {'S': current_time},
-                    'description': {'S': ''},
-                    'file_key': {'S': filename},
-                    'last_modified': {'S': current_time},
-                    'user': {'S': user_id},
-                    'album': {'S': album},
-                    "shared_with":{'L': []}
-                }
-            )
+        new_file = {
+            "file_id": str(file_id),
+            "created_at": str(current_time),
+            "description": "",
+            "file_key": str(filename),
+            "last_modified": str(current_time),
+            "user": str(user_id),
+            "album": str(album),
+            "shared_with": set([''])
+        }
+        table = dynamodb.Table(table_name)
+        table.put_item(Item=new_file)
     
     else:
-        dynamodb.update_item(
-            TableName=table_name,
+        table = dynamodb.Table(table_name)
+        table.update_item(
             Key={
-                'file_id': {'S':file_id}
+                'file_id': file_id
             },
             UpdateExpression='SET last_modified = :new_datetime',
             ExpressionAttributeValues={
-                ':new_datetime': {'S':current_time}
+                ':new_datetime': current_time
             }
         )  
     
