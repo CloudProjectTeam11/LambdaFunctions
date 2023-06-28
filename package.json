@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "aws-sdk": "^2.1405.0",
+    "parse-multipart": "^1.0.4",
+    "uuid": "^9.0.0"
+  }
+}
