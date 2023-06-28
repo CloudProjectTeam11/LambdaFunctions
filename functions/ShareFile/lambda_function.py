@@ -3,7 +3,7 @@ import json
 from datetime import datetime
 import os
 
-albums_table = os.environ["ALBUMS_TABLE"]
+albums_table1 = os.environ["ALBUMS_TABLE"]
 files_table = os.environ["USER_FILES_METADATA_TABLE"]
 
 def lambda_handler(event, context):
@@ -31,6 +31,7 @@ def lambda_handler(event, context):
             'body': json.dumps("File not found")
         }
 
+    print(file_metadata)
     # Check if the user is the owner of the file
     if file_metadata['user'] != user:
         return {
@@ -52,7 +53,7 @@ def lambda_handler(event, context):
         }
 
     # Find the album in the albums table
-    albums_table = dynamodb.Table(albums_table)
+    albums_table = dynamodb.Table(albums_table1)
     response = albums_table.get_item(Key={'album_id': file_metadata['album']})
     album = response.get('Item')
 
@@ -68,6 +69,10 @@ def lambda_handler(event, context):
 
     # Update the shared_with list in the file metadata
     file_metadata['shared_with'].append(share_with_user)
+
+    # Convert shared_with to a list of strings
+    file_metadata['shared_with'] = [str(user) for user in file_metadata['shared_with']]
+
     metadata_table.put_item(Item=file_metadata)
 
     output = {

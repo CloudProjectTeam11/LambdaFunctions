@@ -116,6 +116,7 @@ functions:
           cors: 
             origin: '*'
             headers:
+              - authorizer
               - authorizationToken
               - Access-Control-Allow-Origin
             allowCredentials: true
@@ -137,7 +138,7 @@ functions:
             headers:
               - authorizationToken
               - authorization
-              - access-control-allow-origin
+              - Access-Control-Allow-Origin
             allowCredentials: true
             allowMethods:
               - PUT
@@ -160,6 +161,7 @@ functions:
               - authorizationToken
               - content-type
               - authorization
+              - Access-Control-Allow-Origin
             allowCredentials: true
           authorizer:
             name: defaultAuthorizer
@@ -178,6 +180,8 @@ functions:
             origin: '*'
             headers:
               - authorizationToken
+              - authorizer
+              - Access-Control-Allow-Origin
             allowCredentials: true
           authorizer:
             name: defaultAuthorizer
@@ -212,6 +216,7 @@ functions:
               - authorizationToken
               - authorization
               - content-type
+              - Access-Control-Allow-Origin
             allowCredentials: true
           authorizer:
             name: defaultAuthorizer
@@ -231,6 +236,7 @@ functions:
             headers:
               - authorizationToken
               - Access-Control-Allow-Origin
+              - authorizer
             allowCredentials: true
           authorizer:
             name: defaultAuthorizer
