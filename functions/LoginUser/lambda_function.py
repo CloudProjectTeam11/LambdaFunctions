@@ -25,7 +25,7 @@ def validate_user(email : str, password : str):
     
     user = response['Items'][0]
     if user['password'] == hashed_password:
-        return user['userID']
+        return user
     
     return None
 
@@ -61,9 +61,17 @@ def lambda_handler(event, context):
     email = body['email']
     password = body["password"]
     
-    userID = validate_user(email, password)
-    print(userID)
-    if userID is not None:
+    user = validate_user(email, password)
+    if user is not None:
+        if not user.get("is_active"):
+            return {
+                'statusCode': 403,
+                'headers': {
+                    'Access-Control-Allow-Origin': '*',
+                },
+                'body': json.dumps({'message':'Your account is not approved'})
+            }
+        userID = user['userID']
         secret_key = 'secret'
         tz = datetime.timezone(datetime.timedelta(hours=1), name='CET')
         expiration_datetime = datetime.datetime.now(tz) + datetime.timedelta(hours=24)

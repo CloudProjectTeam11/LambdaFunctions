@@ -152,7 +152,8 @@ def lambda_handler(event, context):
 		'birth_date': body["birth_date"],
 		'name': body["name"],
 		'username': body["username"],
-		'userID': body["username"]
+		'userID': body["username"],
+		"is_active":True
 		
 	}
 	album_id = uuid.uuid1()
